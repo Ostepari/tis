@@ -1,0 +1,22 @@
+Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia: 5. 10. 2015 - 14:00 v miestnosti H6
+- zoznam prítomných: Michal Piják, Károly Belokostolský
+
+Prekonzultovali sme následovné témy:
+- zadanie projektu
+- jazyk v ktorom sa bude programovať
+- katalóg požiadaviek
+
+Zhodnotenie predchádzajúcého stretnutia:
+- nestihli sme stretnúť sa so zadávateľom projektu
+- ganttov diagram nebol pripravený v čase stretnutia
+
+Do budúceho stretnutia treba:
+- stretnúť sa so zadávateľom projektu
+- vytvoriť katalóg požiadaviek
+
+Rozdelenie úloh - Katalóg požiadaviek (deadline: 12.10.2015, 20:00):
+Michal Piják - Úvod (Predmet špecifikácie, rozsah projektu, odkazy, )
+Károly Belokostolský - Celkový opis (kontext systému, funkcie systému, budúce verzie)
+Michal Rakovský - Špecifikácia požiadaviek
+János Rosztovics - Ďalšie požiadavky
