@@ -1,0 +1,30 @@
+﻿Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia: 8. 10. 2015 - 10:00
+- zoznam prítomných: Michal Piják, Károly Belokostolský
+
+Prekonzultovali sme následovné témy:
+- stretli sme sa so zadávateľom projektu 
+- máme vytvoriť projekt s názvom "Vyskladaj si avatara"
+- technológie ktoré máme použiť NodeJS ako backend, MariaDB ako databáza
+- naša aplikácia bude doplnená do súčasného projektu zadávateľa, ktorý už beží
+- systém bude riešený modulárne (budú sa dať pridávať objekty, témy)
+- po prihlásení, ak dotyčná osoba klikne na svoj avatar, zobrazí sa mu aplikácia
+  na vyskladanie avatara
+- k vyskladanému avatarovi sa bude dať hocikedy vrátiť a upraviť
+- celý avatar bude uložený v databáze (pravdepodobne svg)
+- po uložení sa avatar uloží aj ako obrázok a takto sa bude zobrazovať v profile
+
+Zhodnotenie predchádzajúcého stretnutia:
+- nestihli sme stretnúť sa so zadávateľom projektu
+- ganttov diagram nebol pripravený v čase stretnutia
+
+Do budúceho stretnutia treba:
+- dokončiť katlóg požiadaviek
+
+Rozdelenie úloh - Katalóg požiadaviek (deadline: 12.10.2015, 20:00):
+Michal Piják - Úvod (Predmet špecifikácie, rozsah projektu, odkazy, )
+Károly Belokostolský - Celkový opis (kontext systému, funkcie systému, budúce verzie)
+Michal Rakovský - Špecifikácia požiadaviek
+János Rosztovics - Ďalšie požiadavky
+
+Za zápisnicu zodpovedá Michal Piják

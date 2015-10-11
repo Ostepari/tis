@@ -20,3 +20,5 @@ Michal Piják - Úvod (Predmet špecifikácie, rozsah projektu, odkazy, )
 Károly Belokostolský - Celkový opis (kontext systému, funkcie systému, budúce verzie)
 Michal Rakovský - Špecifikácia požiadaviek
 János Rosztovics - Ďalšie požiadavky
+
+Za zápisnicu zodpovedá Michal Piják
