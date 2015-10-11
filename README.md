@@ -1,4 +1,5 @@
 # TIS projekt - Vyskladaj si avatara
+![ktuberling](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/img/ktuberling.jpg)
 
 Základné featúry projektu:
 
