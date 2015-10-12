@@ -3,7 +3,7 @@
 ![Ganttov diagram](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/ganttov_diagram.jpg)
 
 ### Katalóg požiadaviek
-* [Katalóg požiadaviek](https://github.com/Ostepari/tis/blob/dokumenty/katalog-poziadaviek.pdf) @ 1 verzia
+* [Katalóg požiadaviek](https://github.com/Ostepari/tis/blob/dokumenty/katalog-poziadaviek.pdf) @ 2 verzia
 
 ### Zápisnice zo stretnutí
 
