@@ -1,0 +1,22 @@
+﻿Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia:  21. 10. 2015
+- zoznam prítomných: Michal Piják, Károly Belokostolský, János Rosztovics
+
+Prekonzultovali sme následovné témy:
+- konceptuálnu analýzu a čo treba doplniť
+- analýzu technológií
+
+Zhodnotenie predchádzajúcého stretnutia:
+- riešili sme čo dorobiť a vylepšiť v katalógu požiadaviek
+
+Do budúceho stretnutia treba:
+- vylepšiť konceptuálnu analýzu a poslať na súhlas vedúcemu
+- naštudovať technológie ktoré použijeme
+
+Rozdelenie úloh - Analýza technológií (deadline: 26.10.2015, 20:00):
+Michal Piják - diagramy
+Károly Belokostolský - rozdelenie projektu na jednotlivé časti
+Michal Rakovský - podrobný návrh dátového modelu
+János Rosztovics - popis diagramov
+
+Za zápisnicu zodpovedá Michal Piják
