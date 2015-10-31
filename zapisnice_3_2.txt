@@ -3,13 +3,14 @@
 - zoznam prítomných: Michal Piják, Michal Rakovský, Károly Belokostolský, János Rosztovics
 
 Prekonzultovali sme následovné témy:
-- dokončenie konceptuálnej analýzy
+- dokončenie analýzy technológii
 
 Zhodnotenie predchádzajúcého stretnutia:
-- riešili sme čo dorobiť v konceptuálnej analýze
+- riešili sme čo dorobiť v analýze technológií
 
 Do budúceho stretnutia treba:
-- naštudovať technológie ktoré použijeme, rozdeliť úlohy v teame
+- dokončiť analýzu technológií
+- naštudovať potrebné js knižnice
 
 Rozdelenie úloh - Analýza technológií (deadline: 26.10.2015, 20:00):
 Michal Piják - diagramy
@@ -17,4 +18,4 @@ Károly Belokostolský - rozdelenie projektu na jednotlivé časti
 Michal Rakovský - podrobný návrh dátového modelu
 János Rosztovics - popis diagramov
 
-Za zápisnicu zodpovedá Michal Piják
+Za zápisnicu zodpovedá Michal Rakovský
