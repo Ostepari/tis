@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="fabric.min.js"></script>
+	<script src="canvas-controller.js"></script>
+</head>
+<body>
+<div class="avatar">
+	<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;">
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+	<button onclick="addTriangle()">Pridat</button>
+</div>
+<script type="text/javascript">
+// create a wrapper around native canvas element (with id="c")
+var canvas = new fabric.Canvas('myCanvas');
+
+// create a rectangle object
+var rect = new fabric.Rect({
+  left: 100,
+  top: 100,
+  fill: 'red',
+  width: 20,
+  height: 20
+});
+
+// "add" rectangle onto canvas
+canvas.add(rect);
+
+// delete object on keydown delete key
+document.addEventListener('keydown', function (e) {
+     onKeyDownHandler(e)
+}, false);
+
+function onKeyDownHandler(e) {
+   switch (e.keyCode) {
+      case 46: // delete
+         var activeObject = canvas.getActiveObject();
+         if (activeObject) canvas.remove(activeObject);
+         return;
+   }
+};
+</script>
+
+</body>
+</html>
