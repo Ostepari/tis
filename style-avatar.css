@@ -1,0 +1,35 @@
+div.avatar {
+	width: 800px;
+	height: 400px;
+	background-color: rgb(251, 213, 43);
+}
+
+#canvasPanel {
+	width: 400px;
+}
+
+.tool-wrapper {
+	height: 40px;
+	line-height: 40px;
+	padding: 5px;
+	background-color: #F1EEEE;
+}
+
+#myCanvas {
+	background-color: white;
+}
+
+.btn-default {
+	display: inline-block;
+	background-color: #fff;
+	margin-bottom: 0;
+	border: 1px solid #ccc;
+	font-size: 16px;
+    line-height: 1.5;
+}
+
+.btn-default:hover {
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	cursor: pointer;
+}
