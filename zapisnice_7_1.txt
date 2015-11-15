@@ -1,0 +1,20 @@
+Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia:  15. 11. 2015
+- zoznam prítomných: Michal Piják, Michal Rakovský, Károly Belokostolský
+
+Prekonzultovali sme následovné témy:
+- ako programovať projekt v node js
+- rozdelenie úloh
+
+Zhodnotenie predchádzajúcého stretnutia:
+- stretli sme sa so zadávateľom a prebrali sme štruktúru programu
+
+Do budúceho stretnutia treba:
+- vypracovať prvú verziu programu
+
+Rozdelenie úloh - Špecifikácia komponentov (deadline: 18.11.2015, 20:00 ):
+Michal Piják - Front-end, design, architektúra
+Károly Belokostolský - Užívateľské testovanie a dodávanie potrebných obrázkov
+Michal Rakovský - Back-end, testy, databáza
+
+Za zápisnicu zodpovedá Michal Rakovský
