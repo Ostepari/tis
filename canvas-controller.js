@@ -56,7 +56,7 @@ addTriangle = function() {
     fill: '#' + getRandomColor(),
     width: 50,
     height: 50,
-    opacity: 0.8
+    opacity: 1
   }));
 };
 
