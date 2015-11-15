@@ -71,6 +71,18 @@ rasterizeJSON = function() {
 };
 
 /**
+ * Nacita udaje vo formate json a zobrazi ich v canvase
+ *
+ * @method     loadJSON
+ * @param      {string}  json    ulozeny string vo formate json
+ */
+loadJSON = function(json) {
+  canvas.loadFromJSON(json, function(){
+    canvas.renderAll();
+  });
+};
+
+/**
  * Posunie vyznaceny objekt pod dalsi objekt
  *
  * @method     sendBackwards
@@ -93,3 +105,14 @@ bringForward = function() {
     canvas.bringForward(activeObject);
   }
 };
+
+/**
+ * Zmaze oznaceny objekt v canvase
+ *
+ * @method     deleteSelected
+ */
+deleteSelected = function() {
+  var activeObject = canvas.getActiveObject();
+  if (activeObject) canvas.remove(activeObject);
+  return;
+}
