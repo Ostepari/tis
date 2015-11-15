@@ -59,3 +59,37 @@ addTriangle = function() {
     opacity: 0.8
   }));
 };
+
+/**
+ * Rasterizuje canvas do formatu JSON
+ *
+ * @method     rasterizeJSON
+ * @return     {string}  canvas rasterizovany vo formate JSON
+ */
+rasterizeJSON = function() {
+  return JSON.stringify(canvas);
+};
+
+/**
+ * Posunie vyznaceny objekt pod dalsi objekt
+ *
+ * @method     sendBackwards
+ */
+sendBackwards = function() {
+  var activeObject = canvas.getActiveObject();
+  if (activeObject) {
+    canvas.sendBackwards(activeObject);
+  }
+};
+
+/**
+ * Posunie vyznaceny objekt nad dalsi objekt
+ *
+ * @method     bringForward
+ */
+bringForward = function() {
+  var activeObject = canvas.getActiveObject();
+  if (activeObject) {
+    canvas.bringForward(activeObject);
+  }
+};
