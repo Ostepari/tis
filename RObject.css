@@ -1,0 +1,17 @@
+img.tool {
+  position:absolute;
+  z-index: 100;
+
+  margin: 0px;
+  border: 0px;
+  height: 24px;
+}
+
+img.icon {
+  margin: 0px;
+  border: 0px;
+  height: 50px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+

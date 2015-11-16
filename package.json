@@ -1,0 +1,22 @@
+{
+  "name": "avatar",
+  "version": "1.0.0",
+  "description": "modul na vytvarania avatarov pre aplikaciu mmcitanka",
+  "main": "avatar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ostepari/tis.git"
+  },
+  "author": "Michal Pijak, Michal Rakovsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ostepari/tis/issues"
+  },
+  "homepage": "https://github.com/Ostepari/tis#readme",
+  "dependencies" :
+  { "socket.io" : "1.3.7"
+  }
+}

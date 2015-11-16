@@ -1,0 +1,17 @@
+
+.base_disSel {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+div:-webkit-full-screen.fullscreen {
+  top: 0px !important;
+  left: 0px !important;
+  width: 100% !important;
+  height:100% !important;
+}
+
