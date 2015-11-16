@@ -2,6 +2,8 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 
+//var nsp = io.of('/avatar');
+
 var mimeTypes = {
   '.js' : 'text/javascript',
   '.html': 'text/html',
@@ -10,7 +12,7 @@ var mimeTypes = {
   '.gif' : 'image/gif'
 };
 
-http.createServer(function (request, response) {
+var server = http.createServer(function (request, response) {
 
   //var lookup = path.basename(decodeURI(request.url)) || 'index.html';
   // console.log(request.url);
@@ -34,4 +36,14 @@ http.createServer(function (request, response) {
   });
 
 }).listen(8080);
+
+var iom = require('socket.io').listen(server);
+var io = iom.of('/avatar');
+
+io.on('connection', function(socket){
+  // blabla
+  socket.emit('message', {'message': 'hello world'});
+});
+
 console.log("Server running at http://127.0.0.1:8080/");
+
