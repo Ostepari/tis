@@ -38,9 +38,12 @@ var server = http.createServer(function (request, response) {
 }).listen(8080);
 
 var iom = require('socket.io').listen(server);
-var io = iom.of('/avatar');
 
-io.on('connection', function(socket){
+// namespace nefunguje, zatial pouzijeme default io = iom
+//var io = iom.of('/avatar');
+var io = iom;
+
+io.on('connection', function(socket) {
   // blabla
   socket.emit('message', {'message': 'hello world'});
 });

@@ -6,6 +6,7 @@
     <meta name="GENERATOR" content="Linux i686" />
     <link rel="SHORTCUT ICON" href="obrazky/voznik.gif" />
     <script src="fabric.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <link rel='stylesheet' type='text/css' href='base.css'/>
     <link rel='stylesheet' type='text/css' href='RObject.css'/>
     <title>Multimediálna čítanka - framework</title>
@@ -52,7 +53,14 @@
     })
 
   //]]> 
-  
+    
+    // sockety zatial bez namespace avatar
+    // var socket = io('/avatar');
+    var socket = io();
+
+    socket.on('message', function(data){
+        console.log(data.message);
+    });
   </script>
 <script type="text/javascript">
   // create a wrapper around native canvas element (with id="c")
