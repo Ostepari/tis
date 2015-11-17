@@ -37,6 +37,30 @@ var server = http.createServer(function (request, response) {
 
 }).listen(8080);
 
+var Sequelize = require('sequelize')
+// database, user, password
+var sequelize = new Sequelize('avatar', 'root', '')
+
+// definicia tabuliek
+var Theme = sequelize.define('Theme', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  name: Sequelize.STRING,
+  path: Sequelize.STRING
+})
+var Avatar = sequelize.define('Avatar', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  name: Sequelize.STRING,
+  json: Sequelize.TEXT,
+  user_id: Sequelize.INTEGER
+})
+var Objekt = sequelize.define('Objekt', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  path: Sequelize.STRING,
+  theme_id: Sequelize.INTEGER
+})
+sequelize.sync();
+
+// Sockety
 var iom = require('socket.io').listen(server);
 
 // namespace nefunguje, zatial pouzijeme default io = iom
