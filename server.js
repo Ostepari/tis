@@ -56,7 +56,7 @@ var Avatar = sequelize.define('Avatar', {
 })
 var Objekt = sequelize.define('Objekt', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-  path: Sequelize.STRING,
+  thumbPath: Sequelize.STRING,
   order: Sequelize.INTEGER,
   theme_id: Sequelize.INTEGER
 })
