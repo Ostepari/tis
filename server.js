@@ -51,11 +51,13 @@ var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
-  user_id: Sequelize.INTEGER
+  user_id: Sequelize.INTEGER,
+  theme_id: Sequelize.INTEGER
 })
 var Objekt = sequelize.define('Objekt', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   path: Sequelize.STRING,
+  order: Sequelize.INTEGER,
   theme_id: Sequelize.INTEGER
 })
 sequelize.sync();
