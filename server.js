@@ -45,7 +45,7 @@ var sequelize = new Sequelize('avatar', 'root', '')
 var Theme = sequelize.define('Theme', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
-  path: Sequelize.STRING
+  thumbPath: Sequelize.STRING
 })
 var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
@@ -56,7 +56,7 @@ var Avatar = sequelize.define('Avatar', {
 })
 var Objekt = sequelize.define('Objekt', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
-  thumbPath: Sequelize.STRING,
+  path: Sequelize.STRING,
   order: Sequelize.INTEGER,
   theme_id: Sequelize.INTEGER
 })
