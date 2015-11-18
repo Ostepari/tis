@@ -1,0 +1,21 @@
+﻿Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia:  08. 11. 2015
+- zoznam prítomných: Michal Piják, Michal Rakovský, Károly Belokostolský, János Rosztovics
+
+Prekonzultovali sme následovné témy:
+- kompatibilita použitých knižníc s už hotovým kódov od zadavateľa
+- funkcionalita projektu
+
+Zhodnotenie predchádzajúcého stretnutia:
+- preberali sme čo treba vylepšiť v návrhu
+
+Do budúceho stretnutia treba:
+- vypracovať špecifikáciu komponentov
+
+Rozdelenie úloh - Špecifikácia komponentov (deadline: 11.11.2015, 20:00 ):
+Michal Piják - špecifikovať jednotlivé súčasti systému (triedy), ich rozhrania, atribúty
+Károly Belokostolský - Vypracovať dokument s informáciami o knižniciach pre potreby špecifikácie
+Michal Rakovský - Špecifikovať funkčnosť metód vrátane použitých algoritmov a testovacích scenárov
+János Rosztovics - Vypracovať dokument s informáciami o technológiách použitých v hotovom kóde pre potreby špecifikácie
+
+Za zápisnicu zodpovedá Michal Rakovský

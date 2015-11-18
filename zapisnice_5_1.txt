@@ -1,0 +1,21 @@
+﻿Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia:  03. 11. 2015
+- zoznam prítomných: Michal Piják, Michal Rakovský, Károly Belokostolský, János Rosztovics
+
+Prekonzultovali sme následovné témy:
+- návrh projektu, čo treba upraviť
+
+Zhodnotenie predchádzajúcého stretnutia:
+- rozdelili sme úlohy v teame
+- vypracovali sme návrh
+
+Do budúceho stretnutia treba:
+- dokončiť návrh
+
+Rozdelenie úloh - Návrh (deadline: 04.11.2015, 20:00 ):
+Michal Piják - architektúra projektu
+Károly Belokostolský - vzhľad uživateľského prostredia
+Michal Rakovský - algoritmi a dátové štruktúry
+János Rosztovics - vzhľad uživateľského prostredia
+
+Za zápisnicu zodpovedá Michal Rakovský
