@@ -6,7 +6,7 @@
 -- SET FOREIGN_KEY_CHECKS=0;
 
 -- ---
--- Table 'Temy'
+-- Table 'Temy's
 -- tabulka tem
 -- ---
 
