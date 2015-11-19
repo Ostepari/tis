@@ -40,25 +40,36 @@ var server = http.createServer(function (request, response) {
 var Sequelize = require('sequelize')
 // database, user, password
 var sequelize = new Sequelize('avatar', 'root', '')
+//auth
+//sequelize.authenticate().complete(function (err) {
+// if (err) {
+//    console.log('Chyba v spojeni s DB');
+// } else {
+//    console.log('Spojenie s DB uspesne');
+// }
+//});
 
 // definicia tabuliek
 var Theme = sequelize.define('Theme', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
-  thumbPath: Sequelize.STRING
+  thumbPath: Sequelize.STRING,
+  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 })
 var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
   user_id: Sequelize.INTEGER,
-  theme_id: Sequelize.INTEGER
+  theme_id: Sequelize.INTEGER,
+  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 })
 var Objekt = sequelize.define('Objekt', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   path: Sequelize.STRING,
   order: Sequelize.INTEGER,
-  theme_id: Sequelize.INTEGER
+  theme_id: Sequelize.INTEGER,
+  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 })
 sequelize.sync();
 
