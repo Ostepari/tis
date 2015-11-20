@@ -4,7 +4,6 @@ var okno;
 
   okno = function () {
     RWindow.call (this, 100, 90, 650, 353, 'owl24.png');
-
     var self = this;
 
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
@@ -60,7 +59,10 @@ okno.prototype.moja = function () {
     width: 20,
     height: 20
   });
-
+  //ukladanie objektov
+  var json = JSON.stringify( canvas.toJSON() );
+  console.log(json);
+  
   // "add" rectangle onto canvas
   canvas.add(rect);
 }
@@ -71,7 +73,6 @@ okno.prototype.moja = function () {
 var slimak;
 
 (function () {
-
   slimak = function () {
     RImage.call (this, 10, 100, 'obrazky/snail150.png');
 
@@ -100,7 +101,6 @@ var slimak;
       menu.Rem (self.ico);
       e.stopPropagation ();
     });
-
   };
 
   (function (){
