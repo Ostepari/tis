@@ -53,23 +53,20 @@ var sequelize = new Sequelize('avatar', 'root', '')
 var Theme = sequelize.define('Theme', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
-  thumbPath: Sequelize.STRING,
-  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+  thumbPath: Sequelize.STRING
 })
 var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
   user_id: Sequelize.INTEGER,
-  theme_id: Sequelize.INTEGER,
-  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+  theme_id: Sequelize.INTEGER
 })
 var Objekt = sequelize.define('Objekt', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   path: Sequelize.STRING,
   order: Sequelize.INTEGER,
-  theme_id: Sequelize.INTEGER,
-  datum: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+  theme_id: Sequelize.INTEGER
 })
 sequelize.sync();
 
