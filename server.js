@@ -76,10 +76,16 @@ var iom = require('socket.io').listen(server);
 // namespace nefunguje, zatial pouzijeme default io = iom
 //var io = iom.of('/avatar');
 var io = iom;
-
+var log = function (inst) {
+  console.dir(inst.get());
+}
 io.on('connection', function(socket) {
-  // blabla
-  socket.emit('message', {'message': 'hello world'});
+  // query na zoznam vsetkych tem, ktore potom posleme klientovi
+  Theme.findAll().then(function(themes) {
+     socket.emit('message', themes);
+  });
+
+ 
 });
 
 console.log("Server running at http://127.0.0.1:8080/");

@@ -60,7 +60,7 @@
     var socket = io();
 
     socket.on('message', function(data){
-        console.log(data.message);
+        console.log(data[0].name);
     });
   </script>
 <script type="text/javascript">

@@ -79,12 +79,16 @@ var avatarAdmin;
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
     this.resizeable = false;
     this.dragable = true;
-    this.lab.innerHTML = 'Vyskladaj si avatara';
+    this.lab.innerHTML = 'Admin - Vyskladaj si avatara';
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
 
     ////////////////////////////////////////////////////
-    self.con.innerHTML = '<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>';
+    self.con.innerHTML = '<div id="avatar-admin-index" style="display:block;">\
+      <button type="button" id="pridajTemu">Pridat novu temu</button><br>\
+      Zoznam tem:\
+      </div>\
+      <div id="avatar-admin-pridaj" style="display:none;"></div>'
     ////////////////////////////////////////////////////
     
 
@@ -119,22 +123,23 @@ var avatarAdmin;
 
 ///////////////////////////////////////////////////
 avatarAdmin.prototype.moja = function () {
-  var canvas = new fabric.Canvas('myCanvas');
+  // vymeni obsah okna avatar
+  function SwapDivsWithClick(div1,div2) {
+     d1 = document.getElementById(div1);
+     d2 = document.getElementById(div2);
+     if ( d2.style.display == "none" ) {
+        d1.style.display = "none";
+        d2.style.display = "block";
+     }
+     else {
+        d1.style.display = "block";
+        d2.style.display = "none";
+     }
+  }
+  document.getElementById("pridajTemu").onclick = function () {
+    SwapDivsWithClick("avatar-admin-index","avatar-admin-pridaj")
+  };
 
-  // create a rectangle object
-  var rect = new fabric.Rect({
-    left: 100,
-    top: 100,
-    fill: 'red',
-    width: 20,
-    height: 20
-  });
-  //ukladanie objektov
-  var json = JSON.stringify( canvas.toJSON() );
-  console.log(json);
-  
-  // "add" rectangle onto canvas
-  canvas.add(rect);
 }
 ///////////////////////////////////////////////////
 
