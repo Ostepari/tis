@@ -123,7 +123,7 @@ var avatarAdmin;
 
 ///////////////////////////////////////////////////
 avatarAdmin.prototype.moja = function () {
-  // vymeni obsah okna avatar
+  // vymeni obsah okna
   function SwapDivsWithClick(div1,div2) {
      d1 = document.getElementById(div1);
      d2 = document.getElementById(div2);
