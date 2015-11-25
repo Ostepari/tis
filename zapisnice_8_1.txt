@@ -1,0 +1,22 @@
+Zápisnice zo stretnutia predmetu TiS skupina Oštepári
+- dátum stretnutia:  24. 11. 2015
+- zoznam prítomnıch: Michal Piják, Michal Rakovskı, Karóly Belokostolskı
+
+Prekonzultovali sme následovné témy:
+- bohuial tentokrát vedúci projektu nemohol tak sme sa stretli sami
+- èo treba doplni do dokumentov
+- ako programova pomocou socket.io
+- ako vyrieši otváranie novıch okien
+
+Zhodnotenie predchádzajúcého stretnutia:
+- stretli sme sa a prebrali sme kostru programu, ako èo naprogramova
+
+Do budúceho stretnutia treba:
+- dokonèi finálnu verziu aplikácie a všetky potrebné dokumenty
+
+Rozdelenie úloh - Pogramovanie projektu (deadline: 28.11.2015, 20:00 ):
+Michal Piják - Front-end, design, architektúra, sockety
+Károly Belokostolskı - Uívate¾ské testovanie a dodávanie potrebnıch obrázkov
+Michal Rakovskı - Back-end, testy, databáza, testovanie
+
+Za zápisnicu zodpovedá Michal Piják
