@@ -4,22 +4,23 @@ div.avatar {
 	background-color: rgb(251, 213, 43);
 }
 
-#canvasPanel {
+div.avatar #canvasPanel {
+	float: left;
 	width: 400px;
 }
 
-.tool-wrapper {
+div.avatar .tool-wrapper {
 	height: 40px;
 	line-height: 40px;
 	padding: 5px;
 	background-color: #F1EEEE;
 }
 
-#myCanvas {
+div.avatar #myCanvas {
 	background-color: white;
 }
 
-.btn-default {
+div.avatar .btn-default {
 	display: inline-block;
 	background-color: #fff;
 	margin-bottom: 0;
@@ -28,8 +29,24 @@ div.avatar {
     line-height: 1.5;
 }
 
-.btn-default:hover {
+div.avatar .btn-default:hover {
 	background-color: #e6e6e6;
 	border-color: #adadad;
 	cursor: pointer;
 }
+
+div.avatar .avatar-objekt {
+	max-width: 50px;
+}
+
+div.avatar .avatar-objekt:hover {
+	cursor: pointer;
+}
+
+div.avatar .objekty {
+	padding: 20px;
+	float: right;
+	width: 360px;
+}
+
+.clearBoth{clear:both;} 

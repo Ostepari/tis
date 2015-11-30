@@ -1,3 +1,9 @@
+var getRandomInt = fabric.util.getRandomInt;
+
+function getRandomNum(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 /**
  * Vrati nahodnu poziciu v canvase
  *
@@ -5,7 +11,7 @@
  * @return     {Object}  vrati objekt s top a left suradnicami
  */
 function getRandomLeftTop() {
-  var offset = 50;
+  var offset = 100;
   return {
     left: fabric.util.getRandomInt(0 + offset, 400 - offset),
     top: fabric.util.getRandomInt(0 + offset, 400 - offset)
@@ -59,6 +65,31 @@ addTriangle = function() {
     opacity: 1
   }));
 };
+
+/**
+ * Prida obrazok do canvasu
+ *
+ * @method     addImage
+ * @param      {string}  imageName  nazov obrazka
+ * @param      {<type>}  minScale   { description }
+ * @param      {<type>}  maxScale   { description }
+ */     
+function addImage(imageName, minScale, maxScale) {
+    var coord = getRandomLeftTop();
+
+    fabric.Image.fromURL('temy/1/' + imageName, function(image) {
+
+      image.set({
+        left: coord.left,
+        top: coord.top,
+        angle: getRandomInt(-10, 10)
+      })
+      .scale(getRandomNum(minScale, maxScale))
+      .setCoords();
+
+      canvas.add(image);
+    });
+  };
 
 /**
  * Rasterizuje canvas do formatu JSON

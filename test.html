@@ -17,11 +17,15 @@
       <button type="button" class="btn-default " title="" onclick="canvas.clear()"><i class="fa fa-times"></i></button>
       <button type="button" class="btn-default " title="" ><i class="fa fa-floppy-o"></i></button>
     </div>
-  	<canvas id="myCanvas" width="400" height="360">
+  	<canvas id="myCanvas" width="400" height="350">
   	Your browser does not support the HTML5 canvas tag.
   	</canvas>
   </div>
- 
+
+  <div class="objekty">
+    <img src="temy/1/eyes.png" onclick="addImage('eyes.png', 0.1, 0.25)" class="avatar-objekt">
+    <img src="temy/1/nose.png" onclick="addImage('nose.png', 0.1, 0.25)" class="avatar-objekt">
+  </div>
 </div>
 <script type="text/javascript">
 // create a wrapper around native canvas element (with id="c")
