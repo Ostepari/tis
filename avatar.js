@@ -3,7 +3,7 @@ var avatarSkladanie;
 (function () {
 
   avatarSkladanie = function () {
-    RWindow.call (this, 100, 90, 650, 353, 'avatar-skladanie-min.png');
+    RWindow.call (this, 100, 90, 830, 450, 'avatar-skladanie-min.png');
     var self = this;
 
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
@@ -14,12 +14,37 @@ var avatarSkladanie;
     this.lab.style.marginLeft = '0px';
 
     ////////////////////////////////////////////////////
-    self.con.innerHTML = '<canvas id="myCanvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>';
+    self.con.innerHTML = [
+    '<div class=\"avatar\">',
+    '  <div id=\"canvasPanel\">',
+    '    <div class=\"tool-wrapper\">',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Pridať trojuholník\" onclick=\"addTriangle()\"><i class=\"fa fa-file\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" ><i class=\"fa fa-floppy-o\"></i></button>',
+    '    </div>',
+    '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
+    '    Your browser does not support the HTML5 canvas tag.',
+    '    </canvas>',
+    '  </div>',
+    '',
+    '  <div class=\"objekty\">',
+    '    <img src=\"upload/temy/1/eyes.png\" onclick=\"addImage(\'eyes.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
+    '    <img src=\"upload/temy/1/nose.png\" onclick=\"addImage(\'nose.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
+    '    <img src=\"upload/temy/1/usta.png\" onclick=\"addImage(\'usta.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
+    '    <img src=\"upload/temy/1/usta2.png\" onclick=\"addImage(\'usta2.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
+    '  </div>',
+    '</div>'].join('\n');
     ////////////////////////////////////////////////////
     
 
     this.Bclose.style.visibility = 'visible';
     this.Bclose.addEventListener ('mousedown', function (e) {
+      // clear canvas on close
+      canvas.clear();
+
       self.hide ();
       menu.Add (self.ico);
       e.stopPropagation ();
@@ -48,23 +73,17 @@ var avatarSkladanie;
 })();
 
 ///////////////////////////////////////////////////
+avatarSkladanie.prototype.jeInicializovane = false;
 avatarSkladanie.prototype.moja = function () {
-  var canvas = new fabric.Canvas('myCanvas');
-
-  // create a rectangle object
-  var rect = new fabric.Rect({
-    left: 100,
-    top: 100,
-    fill: 'red',
-    width: 20,
-    height: 20
-  });
+  // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
+  if (!this.jeInicializovane) {
+    canvas = new fabric.Canvas('myCanvas');
+    avatarSkladanie.prototype.jeInicializovane = true;
+    console.log(this.jeInicializovane);
+  }
   //ukladanie objektov
   var json = JSON.stringify( canvas.toJSON() );
   console.log(json);
-  
-  // "add" rectangle onto canvas
-  canvas.add(rect);
 }
 ///////////////////////////////////////////////////
 

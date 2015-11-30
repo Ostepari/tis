@@ -5,7 +5,13 @@
     <meta name="Author" content="Marek Nagy" />
     <meta name="GENERATOR" content="Linux i686" />
     <link rel="SHORTCUT ICON" href="obrazky/voznik.gif" />
-    <script src="fabric.min.js"></script>
+
+    <!-- css/js pre avatara-->
+    <script src="avatar/fabric.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="avatar/style-avatar.css">
+
+    <!-- ostatne -->
     <script src="/socket.io/socket.io.js"></script>
     <link rel='stylesheet' type='text/css' href='base.css'/>
     <link rel='stylesheet' type='text/css' href='RObject.css'/>
@@ -63,10 +69,8 @@
         console.log(data[0].name);
     });
   </script>
-<script type="text/javascript">
-  // create a wrapper around native canvas element (with id="c")
-
-</script>
+  <!-- controller pre canvas musi byt posledny -->
+  <script type="text/javascript" src="avatar/canvas-controller.js"></script>
   </body>
 </html>
 

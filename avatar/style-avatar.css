@@ -1,0 +1,50 @@
+div.avatar {
+	width: 800px;
+	height: 400px;
+	background-color: rgb(251, 213, 43);
+}
+
+div.avatar #canvasPanel {
+	float: left;
+	width: 400px;
+}
+
+div.avatar .tool-wrapper {
+	height: 40px;
+	line-height: 40px;
+	padding: 5px;
+	background-color: #F1EEEE;
+}
+
+div.avatar #myCanvas {
+	background-color: white;
+}
+
+div.avatar .btn-default {
+	display: inline-block;
+	background-color: #fff;
+	margin-bottom: 0;
+	border: 1px solid #ccc;
+	font-size: 16px;
+    line-height: 1.5;
+}
+
+div.avatar .btn-default:hover {
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	cursor: pointer;
+}
+
+div.avatar .avatar-objekt {
+	max-width: 60px;
+}
+
+div.avatar .avatar-objekt:hover {
+	cursor: pointer;
+}
+
+div.avatar .objekty {
+	padding: 20px;
+	float: right;
+	width: 360px;
+}
