@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <script src="fabric.min.js"></script>
   <script src="canvas-controller.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -10,12 +11,12 @@
 <div class="avatar">
   <div id="canvasPanel">
     <div class="tool-wrapper">
-      <button type="button" class="btn-default " title="" onclick="addTriangle()"><i class="fa fa-file"></i></button>
-      <button type="button" class="btn-default " title="" onclick="bringForward()"><i class="fa fa-plus-square"></i></button>
-      <button type="button" class="btn-default " title="" onclick="sendBackwards()"><i class="fa fa-minus-square"></i></button>
-      <button type="button" class="btn-default " title="" onclick="deleteSelected()"><i class="fa fa-trash-o"></i></button>
-      <button type="button" class="btn-default " title="" onclick="canvas.clear()"><i class="fa fa-times"></i></button>
-      <button type="button" class="btn-default " title="" ><i class="fa fa-floppy-o"></i></button>
+      <button type="button" class="btn-default " title="Pridať trojuholník" onclick="addTriangle()"><i class="fa fa-file"></i></button>
+      <button type="button" class="btn-default " title="Posunúť vyššie" onclick="bringForward()"><i class="fa fa-plus-square"></i></button>
+      <button type="button" class="btn-default " title="Posunúť nižšie" onclick="sendBackwards()"><i class="fa fa-minus-square"></i></button>
+      <button type="button" class="btn-default " title="Zmazať objekt" onclick="deleteSelected()"><i class="fa fa-trash-o"></i></button>
+      <button type="button" class="btn-default " title="Zmazať všetko" onclick="canvas.clear()"><i class="fa fa-times"></i></button>
+      <button type="button" class="btn-default " title="Uložiť" ><i class="fa fa-floppy-o"></i></button>
     </div>
   	<canvas id="myCanvas" width="400" height="350">
   	Your browser does not support the HTML5 canvas tag.
@@ -25,6 +26,8 @@
   <div class="objekty">
     <img src="temy/1/eyes.png" onclick="addImage('eyes.png', 0.1, 0.25)" class="avatar-objekt">
     <img src="temy/1/nose.png" onclick="addImage('nose.png', 0.1, 0.25)" class="avatar-objekt">
+    <img src="temy/1/usta.png" onclick="addImage('usta.png', 0.1, 0.25)" class="avatar-objekt">
+    <img src="temy/1/usta2.png" onclick="addImage('usta2.png', 0.1, 0.25)" class="avatar-objekt">
   </div>
 </div>
 <script type="text/javascript">
