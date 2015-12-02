@@ -23,7 +23,7 @@ var avatarSkladanie;
     '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
     '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
     '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
-    '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" ><i class=\"fa fa-floppy-o\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" onclick=\"self.uloz()\"><i class=\"fa fa-floppy-o\"></i></button>',
     '    </div>',
     '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
     '    Your browser does not support the HTML5 canvas tag.',
@@ -73,6 +73,10 @@ var avatarSkladanie;
 })();
 
 ///////////////////////////////////////////////////
+avatarSkladanie.prototype.uloz = function() {
+    console.log("ok");
+}
+
 avatarSkladanie.prototype.jeInicializovane = false;
 avatarSkladanie.prototype.moja = function () {
   // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
