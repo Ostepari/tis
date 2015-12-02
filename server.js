@@ -79,17 +79,19 @@ var io = iom;
 var log = function (inst) {
   console.dir(inst.get());
 }
-socket.on('avatarJSON', function(data){
-        console.log("ide");
-        console.log(data);
-    });
+
+
+
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
   Theme.findAll().then(function(themes) {
      socket.emit('message', themes);
   });
 
- 
+  socket.on('avatarJSON', function(data){
+    console.log("ide");
+    Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1});
+});
 });
 
 console.log("Server running at http://127.0.0.1:8080/");
