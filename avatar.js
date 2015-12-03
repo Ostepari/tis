@@ -155,7 +155,9 @@ avatarAdmin.prototype.moja = function () {
      }
   }
   document.getElementById("pridajTemu").onclick = function () {
-    SwapDivsWithClick("avatar-admin-index","avatar-admin-pridaj")
+    SwapDivsWithClick("avatar-admin-index","avatar-admin-pridaj");
+    var okno = new RWindow(100, 90, 650, 353, 'avatar-skladanie-min.png');
+    okno.show();
   };
 
 }
