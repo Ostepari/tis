@@ -88,10 +88,10 @@ io.on('connection', function(socket) {
      socket.emit('message', themes);
   });
 
-  socket.on('avatarJSON', function(data){
+  socket.on('avatarJSON', function(data) {
     console.log("ide");
     Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1});
-});
+  });
 });
 
 console.log("Server running at http://127.0.0.1:8080/");
