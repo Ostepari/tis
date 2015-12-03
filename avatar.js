@@ -100,13 +100,24 @@ var avatarAdmin;
     this.lab.innerHTML = 'Admin - Vyskladaj si avatara';
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
-
+    
+    var zoznamTem = [];
+    socket.on('zoznam tem', function(data){
+      zoznamTem.push('<ul id=\"avatarZoznamTem\">');
+      data.forEach(function(theme) {
+        zoznamTem.push('<li>' + theme.name + '</li>');
+      });
+      zoznamTem.push('</ul>');
+      zoznamTem = zoznamTem.join('\n');
+    });
+      
     ////////////////////////////////////////////////////
-    self.con.innerHTML = '<div id="avatar-admin-index" style="display:block;">\
-      <button type="button" id="pridajTemu">Pridat novu temu</button><br>\
-      Zoznam tem:\
-      </div>\
-      <div id="avatar-admin-pridaj" style="display:none;"></div>'
+    self.con.innerHTML = ['<div id=\"avatar-admin-index\" style=\"display:block;\">',
+'      <button type=\"button\" id=\"pridajTemu\">Pridat novu temu</button><br>',
+'      Zoznam tem:', 
+'      <ul id=\"avatarZoznamTem\"></ul>',
+'      </div>',
+'      <div id=\"avatar-admin-pridaj\" style=\"display:none;\"></div>'].join('\n');
     ////////////////////////////////////////////////////
     
 
@@ -125,8 +136,9 @@ var avatarAdmin;
       menu.Rem (self.ico);
       e.stopPropagation ();
       
-      // volame moju funkciu ktora z canvasu spravi fabric.js canvas
+      // zobrazime zoznam tem
       self.moja();
+      document.getElementById("avatarZoznamTem").innerHTML = zoznamTem;
     });
 
   };
@@ -141,6 +153,7 @@ var avatarAdmin;
 
 ///////////////////////////////////////////////////
 avatarAdmin.prototype.moja = function () {
+  
   document.getElementById("pridajTemu").onclick = function () {
     var okno = new RWindow(120, 110, 650, 353, 'avatar-skladanie-min.png');
     okno.show();

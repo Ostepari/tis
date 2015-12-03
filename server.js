@@ -77,7 +77,7 @@ var io = iom.of('/avatar');
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
   Theme.findAll().then(function(themes) {
-     socket.emit('message', themes);
+     socket.emit('zoznam tem', themes);
   });
 
   socket.on('avatarJSON', function(data) {
