@@ -141,67 +141,22 @@ var avatarAdmin;
 
 ///////////////////////////////////////////////////
 avatarAdmin.prototype.moja = function () {
-  // vymeni obsah okna
-  function SwapDivsWithClick(div1,div2) {
-     d1 = document.getElementById(div1);
-     d2 = document.getElementById(div2);
-     if ( d2.style.display == "none" ) {
-        d1.style.display = "none";
-        d2.style.display = "block";
-     }
-     else {
-        d1.style.display = "block";
-        d2.style.display = "none";
-     }
-  }
   document.getElementById("pridajTemu").onclick = function () {
-    SwapDivsWithClick("avatar-admin-index","avatar-admin-pridaj");
-    var okno = new RWindow(100, 90, 650, 353, 'avatar-skladanie-min.png');
+    var okno = new RWindow(120, 110, 650, 353, 'avatar-skladanie-min.png');
     okno.show();
+    okno.lab.innerHTML = 'Admin - Pridaj temu';
+    okno.lab.style.textAlign = 'center';
+    okno.lab.style.marginLeft = '0px';
+    okno.Bclose.style.visibility = 'visible';
+    okno.Bclose.addEventListener ('mousedown', function (e) {
+      okno.hide ();
+      e.stopPropagation ();
+    });
   };
 
 }
 ///////////////////////////////////////////////////
 
 
-var slimak;
 
-(function () {
-  slimak = function () {
-    RImage.call (this, 10, 100, 'obrazky/snail150.png');
-
-    var self = this;
-
-    this.Bclose = Asset.image ('obrazky/window-close.png');
-    this.root.appendChild (this.Bclose);
-    this.Bclose.style.position = 'absolute';
-    this.Bclose.style.left = '90px';
-    this.Bclose.style.top = '10px';
-    MakeButton (this.Bclose);
-
-
-
-    this.Bclose.style.visibility = 'visible';
-    this.Bclose.addEventListener ('mousedown', function (e) {
-      self.hide ();
-      menu.Add (self.ico);
-      e.stopPropagation ();
-    });
-
-    this.ico = Asset.image ('obrazky/snail50.png');
-    menu.Add (this.ico);
-    this.ico.addEventListener ('mousedown', function (e) {
-      self.show ();
-      menu.Rem (self.ico);
-      e.stopPropagation ();
-    });
-  };
-
-  (function (){
-    function Tmp () {};
-    Tmp.prototype = RImage.prototype;
-    slimak.prototype = new Tmp ();
-  })();
-
-})();
 
