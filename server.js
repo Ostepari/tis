@@ -74,8 +74,8 @@ sequelize.sync();
 var iom = require('socket.io').listen(server);
 
 // namespace nefunguje, zatial pouzijeme default io = iom
-//var io = iom.of('/avatar');
-var io = iom;
+var io = iom.of('/avatar');
+//var io = iom;
 var log = function (inst) {
   console.dir(inst.get());
 }
