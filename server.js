@@ -2,8 +2,6 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 
-//var nsp = io.of('/avatar');
-
 var mimeTypes = {
   '.js' : 'text/javascript',
   '.html': 'text/html',
@@ -73,14 +71,8 @@ sequelize.sync();
 // Sockety
 var iom = require('socket.io').listen(server);
 
-// namespace nefunguje, zatial pouzijeme default io = iom
+// Namespace pre sockety
 var io = iom.of('/avatar');
-//var io = iom;
-var log = function (inst) {
-  console.dir(inst.get());
-}
-
-
 
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
