@@ -91,7 +91,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('uloz temu', function(data) {
-    // TODO zabezpecit napr proti xss !!!!!!!
+    // TODO zabezpecit napr proti xss - aj ked sequelize to ma asi v zaklade
     var objectPath = 'upload/temy/' + uniqeString();
     fs.mkdir(objectPath);
     var files = data.files;

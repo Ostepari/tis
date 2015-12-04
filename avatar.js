@@ -161,7 +161,8 @@ avatarAdmin.prototype.moja = function () {
     okno.lab.style.textAlign = 'center';
     okno.lab.style.marginLeft = '0px';
     okno.Bclose.style.visibility = 'visible';
-    okno.con.innerHTML = ['<label for=\"nazovTemy\">Názov témy</label>',
+    okno.con.innerHTML = ['<div id=\"nahravanieTem\">',
+      '<label for=\"nazovTemy\">Názov témy</label>',
       '<input type=\"text\" id=\"nazovTemy\"><br />', 
       '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
       '<hr />',
@@ -171,7 +172,9 @@ avatarAdmin.prototype.moja = function () {
       '<div id=\"dvPreview\">',
       '</div>',
       '<hr />',
-      '<button id="ulozTemu">Uložiť tému</button>'].join('\n');
+      '<button id="ulozTemu">Uložiť tému</button>',
+      '</div>',
+      '<div id="avatarResultMessage"></div>'].join('\n');
     okno.Bclose.addEventListener ('mousedown', function (e) {
       okno.hide ();
       e.stopPropagation ();
@@ -210,7 +213,31 @@ avatarAdmin.prototype.moja = function () {
     document.getElementById("ulozTemu").onclick = function () {
       var nazovTemy = document.getElementById('nazovTemy').value;
       var data = {name: nazovTemy, files: objectFiles};
-      socket.emit('uloz temu', data);
+      var resultMessage = document.getElementById('avatarResultMessage');
+      if (nazovTemy == '' || objectFiles.length == 0) {
+        // ak nie je vyplneny niektory z inputov vypis chybu
+        resultMessage.innerHTML = 'Chyba! Nezadali ste názov témy alebo ste nenahrali žiadne obrázky';
+      } else {
+        // inac posli data do server.js a refreshni okno
+        socket.emit('uloz temu', data);
+        resultMessage.innerHTML = 'Tema bola uspesne ulozena';
+        document.getElementById('nahravanieTem').innerHTML = ['<label for=\"nazovTemy\">Názov témy</label>',
+          '<input type=\"text\" id=\"nazovTemy\"><br />', 
+          '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
+          '<hr />',
+          '<b>Náhľad obrázkov</b>',
+          '<br />',
+          '<br />',
+          '<div id=\"dvPreview\">',
+          '</div>',
+          '<hr />',
+          '<button id="ulozTemu">Uložiť tému</button>'].join('\n');
+      }
+      // zmaz resultMessage po nejakej dobe
+      setTimeout(function(){
+        resultMessage.innerHTML = '';
+      }, 2000);
+      
       // TODO ak sa podarilo ulozit tak zavriet okno alebo nieco napisat
     };
   }
