@@ -1,18 +1,18 @@
 # TIS projekt - Vyskladaj si avatara
-![ktuberling](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/img/ktuberling.jpg)
+![ktuberling](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/img/ukazka.jpg)
 
 Základné featúry projektu:
 
- * možnosť vyskladať si z objektov postavičku (avatara)
- * uloženie postavičky vo formáte svg do databázy
+ * možnosť vyskladať si z objektov postavičku (avatara) za pomoci HTML canvasu
+ * uloženie postavičky vo formáte json do databázy
  * uloženie postavičky ako obrázok (jpg, png)
  * možnosť kedykoľvek sa vrátiť k úpravám avatara
- * modulárne pridávanie objektov
+ * modulárne pridávanie objektov (tém)
 
 
 Technológie a programovacie jazyky:
 
- * JavaScript/NodeJS
+ * JavaScript/NodeJS/Socket.io
  * SQL MariaDB
  * HTML, CSS
  
