@@ -48,3 +48,15 @@ div.avatar .objekty {
 	float: right;
 	width: 360px;
 }
+
+#avatarResultMessage {
+	margin-top: 10px;
+}
+
+#avatarResultMessage .errorMessage {
+	color: red;
+}
+
+#avatarResultMessage .successMessage {
+	color: green;
+}

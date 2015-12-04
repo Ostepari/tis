@@ -216,11 +216,11 @@ avatarAdmin.prototype.moja = function () {
       var resultMessage = document.getElementById('avatarResultMessage');
       if (nazovTemy == '' || objectFiles.length == 0) {
         // ak nie je vyplneny niektory z inputov vypis chybu
-        resultMessage.innerHTML = 'Chyba! Nezadali ste názov témy alebo ste nenahrali žiadne obrázky';
+        resultMessage.innerHTML = '<span class="errorMessage">Chyba! Nezadali ste názov témy alebo ste nenahrali žiadne obrázky</span>';
       } else {
         // inac posli data do server.js a refreshni okno
         socket.emit('uloz temu', data);
-        resultMessage.innerHTML = 'Tema bola uspesne ulozena';
+        resultMessage.innerHTML = '<span class="successMessage">Téma bola úspešne uložená</span>';
         document.getElementById('nahravanieTem').innerHTML = ['<label for=\"nazovTemy\">Názov témy</label>',
           '<input type=\"text\" id=\"nazovTemy\"><br />', 
           '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
