@@ -161,8 +161,8 @@ avatarAdmin.prototype.moja = function () {
     okno.lab.style.textAlign = 'center';
     okno.lab.style.marginLeft = '0px';
     okno.Bclose.style.visibility = 'visible';
-    okno.con.innerHTML = ['<label for=\"username\">Nazov temy</label>',
-      '<input type=\"text\" id=\"username\"><br />', 
+    okno.con.innerHTML = ['<label for=\"nazovTemy\">Nazov temy</label>',
+      '<input type=\"text\" id=\"nazovTemy\"><br />', 
       '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
       '<hr />',
       '<b>Náhľad obrázkov</b>',
@@ -177,6 +177,7 @@ avatarAdmin.prototype.moja = function () {
       e.stopPropagation ();
     });
     var fileUpload = document.getElementById("fileupload");
+    var objectFiles = [];
     fileUpload.onchange = function () {
       if (typeof (FileReader) != "undefined") {
           var dvPreview = document.getElementById("dvPreview");
@@ -192,6 +193,7 @@ avatarAdmin.prototype.moja = function () {
                       img.width = "100";
                       img.src = e.target.result;
                       dvPreview.appendChild(img);
+                      objectFiles.push(e.target.result);
                   }
                   reader.readAsDataURL(file);
               } else {
@@ -205,8 +207,12 @@ avatarAdmin.prototype.moja = function () {
       }
     }
     document.getElementById("ulozTemu").onclick = function () {
-      data = [];
+      var nazovTemy = document.getElementById('nazovTemy').value;
+      var data = {name: nazovTemy, files: objectFiles};
+      console.log(data);
       socket.emit('uloz temu', data);
+
+      // TODO ak sa podarilo ulozit tak zavriet okno alebo nieco napisat
     };
   }
 

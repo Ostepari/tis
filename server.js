@@ -1,6 +1,7 @@
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
+var FileReader = require('filereader')
 
 var mimeTypes = {
   '.js' : 'text/javascript',
@@ -86,14 +87,29 @@ io.on('connection', function(socket) {
   });
 
   socket.on('avatarJSON', function(data) {
-    Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1});
+    Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1 });
   });
 
   socket.on('uloz temu', function(data) {
-    var objectPath = 'upload/temy/' + uniqeString() + '/';
-    Theme.create({ name: data.name, thumbPath: 'upload/temy/'}).then(function(model){
-      console.log(model.id); 
+    // TODO zabezpecit napr proti xss !!!!!!!
+    var objectPath = 'upload/temy/' + uniqeString();
+    fs.mkdir(objectPath);
+    var files = data.files;
+    Theme.create({ name: data.name, thumbPath: 'upload/temy/'} ).then(function(theme){
+      console.log(theme.id); 
       
+      // prejdeme cele pole uploadnutych objektov (obrazkov)
+      for (var i = 0; i < files.length; i++) {
+        var img = files[i];
+        // strip off the data: url prefix to get just the base64-encoded bytes
+        var data = img.replace(/^data:image\/\w+;base64,/, "");
+        var buf = new Buffer(data, 'base64');
+        var imgFormat = '.jpg';
+        var imgPath = objectPath + '/' + i + imgFormat;
+        fs.writeFile(imgPath, buf);
+        // nakoniec ulozime odkaz do databazy
+        Objekt.create({ path: imgPath, order: 0, theme_id: theme.id });
+      }
     });
   });
 });
