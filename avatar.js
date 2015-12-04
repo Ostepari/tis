@@ -155,53 +155,60 @@ var avatarAdmin;
 avatarAdmin.prototype.moja = function () {
   
   document.getElementById("pridajTemu").onclick = function () {
-    var okno = new RWindow(120, 110, 650, 353, 'avatar-skladanie-min.png');
+    var okno = new RWindow(120, 110, 650, 500, 'avatar-skladanie-min.png');
     okno.show();
     okno.lab.innerHTML = 'Admin - Pridaj temu';
     okno.lab.style.textAlign = 'center';
     okno.lab.style.marginLeft = '0px';
     okno.Bclose.style.visibility = 'visible';
-    okno.con.innerHTML = ['<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
+    okno.con.innerHTML = ['<label for=\"username\">Nazov temy</label>',
+      '<input type=\"text\" id=\"username\"><br />', 
+      '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
       '<hr />',
       '<b>Náhľad obrázkov</b>',
       '<br />',
       '<br />',
       '<div id=\"dvPreview\">',
-      '</div>'].join('\n');
+      '</div>',
+      '<hr />',
+      '<button id="ulozTemu">Ulozit temu</button>'].join('\n');
     okno.Bclose.addEventListener ('mousedown', function (e) {
       okno.hide ();
       e.stopPropagation ();
     });
     var fileUpload = document.getElementById("fileupload");
     fileUpload.onchange = function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = document.getElementById("dvPreview");
-            dvPreview.innerHTML = "";
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            for (var i = 0; i < fileUpload.files.length; i++) {
-                var file = fileUpload.files[i];
-                if (regex.test(file.name.toLowerCase())) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = document.createElement("IMG");
-                        img.height = "100";
-                        img.width = "100";
-                        img.src = e.target.result;
-                        dvPreview.appendChild(img);
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    alert(file.name + " nie je validný obrázok.");
-                    dvPreview.innerHTML = "";
-                    return false;
-                }
-            }
-        } else {
-            alert("Tento prehliadač nepodporuje HTML5 FileReader.");
-        }
+      if (typeof (FileReader) != "undefined") {
+          var dvPreview = document.getElementById("dvPreview");
+          dvPreview.innerHTML = "";
+          var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+          for (var i = 0; i < fileUpload.files.length; i++) {
+              var file = fileUpload.files[i];
+              if (regex.test(file.name.toLowerCase())) {
+                  var reader = new FileReader();
+                  reader.onload = function (e) {
+                      var img = document.createElement("IMG");
+                      img.height = "100";
+                      img.width = "100";
+                      img.src = e.target.result;
+                      dvPreview.appendChild(img);
+                  }
+                  reader.readAsDataURL(file);
+              } else {
+                  alert(file.name + " nie je validný obrázok.");
+                  dvPreview.innerHTML = "";
+                  return false;
+              }
+          }
+      } else {
+          alert("Tento prehliadač nepodporuje HTML5 FileReader.");
+      }
     }
-  };
-
+    document.getElementById("ulozTemu").onclick = function () {
+      data = [];
+      socket.emit('uloz temu', data);
+    };
+  }
 
 }
 ///////////////////////////////////////////////////

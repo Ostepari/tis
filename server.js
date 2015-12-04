@@ -74,6 +74,11 @@ var iom = require('socket.io').listen(server);
 // Namespace pre sockety
 var io = iom.of('/avatar');
 
+// funkcia vytvori unikatny string
+function uniqeString () {
+  return (new Date()).getTime().toString();
+}
+
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
   Theme.findAll().then(function(themes) {
@@ -81,8 +86,15 @@ io.on('connection', function(socket) {
   });
 
   socket.on('avatarJSON', function(data) {
-    console.log("ide");
     Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1});
+  });
+
+  socket.on('uloz temu', function(data) {
+    var objectPath = 'upload/temy/' + uniqeString() + '/';
+    Theme.create({ name: data.name, thumbPath: 'upload/temy/'}).then(function(model){
+      console.log(model.id); 
+      
+    });
   });
 });
 
