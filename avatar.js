@@ -110,7 +110,7 @@ var avatarAdmin;
       zoznamTem.push('</ul>');
       zoznamTem = zoznamTem.join('\n');
     });
-      
+
     ////////////////////////////////////////////////////
     self.con.innerHTML = ['<div id=\"avatar-admin-index\" style=\"display:block;\">',
 '      <button type=\"button\" id=\"pridajTemu\">Pridat novu temu</button><br>',
@@ -161,11 +161,47 @@ avatarAdmin.prototype.moja = function () {
     okno.lab.style.textAlign = 'center';
     okno.lab.style.marginLeft = '0px';
     okno.Bclose.style.visibility = 'visible';
+    okno.con.innerHTML = ['<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
+      '<hr />',
+      '<b>Náhľad obrázkov</b>',
+      '<br />',
+      '<br />',
+      '<div id=\"dvPreview\">',
+      '</div>'].join('\n');
     okno.Bclose.addEventListener ('mousedown', function (e) {
       okno.hide ();
       e.stopPropagation ();
     });
+    var fileUpload = document.getElementById("fileupload");
+    fileUpload.onchange = function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = document.getElementById("dvPreview");
+            dvPreview.innerHTML = "";
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            for (var i = 0; i < fileUpload.files.length; i++) {
+                var file = fileUpload.files[i];
+                if (regex.test(file.name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = document.createElement("IMG");
+                        img.height = "100";
+                        img.width = "100";
+                        img.src = e.target.result;
+                        dvPreview.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    alert(file.name + " nie je validný obrázok.");
+                    dvPreview.innerHTML = "";
+                    return false;
+                }
+            }
+        } else {
+            alert("Tento prehliadač nepodporuje HTML5 FileReader.");
+        }
+    }
   };
+
 
 }
 ///////////////////////////////////////////////////
