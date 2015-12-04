@@ -80,6 +80,14 @@ function uniqeString () {
   return (new Date()).getTime().toString();
 }
 
+// funkcia ulozi obrazok vo formate base64 do zvoleneho priecinka
+function saveImg (img, path) {
+  // strip off the data: url prefix to get just the base64-encoded bytes
+  var data = img.replace(/^data:image\/\w+;base64,/, "");
+  var buf = new Buffer(data, 'base64');
+  fs.writeFile(path, buf);
+}
+
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
   Theme.findAll().then(function(themes) {
@@ -91,22 +99,18 @@ io.on('connection', function(socket) {
   });
 
   socket.on('uloz temu', function(data) {
-    // TODO zabezpecit napr proti xss - aj ked sequelize to ma asi v zaklade
     var objectPath = 'upload/temy/' + uniqeString();
+    var thumbnailImgPath = objectPath + '/' + 'thumbnail.png';
     fs.mkdir(objectPath);
+    saveImg(data.thumbFile, thumbnailImgPath);
     var files = data.files;
-    Theme.create({ name: data.name, thumbPath: 'upload/temy/'} ).then(function(theme){
-      console.log(theme.id); 
-      
+    Theme.create({ name: data.name, thumbPath: thumbnailImgPath} ).then(function(theme){      
       // prejdeme cele pole uploadnutych objektov (obrazkov)
       for (var i = 0; i < files.length; i++) {
-        var img = files[i];
-        // strip off the data: url prefix to get just the base64-encoded bytes
-        var data = img.replace(/^data:image\/\w+;base64,/, "");
-        var buf = new Buffer(data, 'base64');
         var imgFormat = '.png';
         var imgPath = objectPath + '/' + i + imgFormat;
-        fs.writeFile(imgPath, buf);
+        saveImg(files[i], imgPath);
+        
         // nakoniec ulozime odkaz do databazy
         Objekt.create({ path: imgPath, order: 0, theme_id: theme.id });
       }
