@@ -161,7 +161,7 @@ avatarAdmin.prototype.moja = function () {
     okno.lab.style.textAlign = 'center';
     okno.lab.style.marginLeft = '0px';
     okno.Bclose.style.visibility = 'visible';
-    okno.con.innerHTML = ['<label for=\"nazovTemy\">Nazov temy</label>',
+    okno.con.innerHTML = ['<label for=\"nazovTemy\">Názov témy</label>',
       '<input type=\"text\" id=\"nazovTemy\"><br />', 
       '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
       '<hr />',
@@ -171,11 +171,12 @@ avatarAdmin.prototype.moja = function () {
       '<div id=\"dvPreview\">',
       '</div>',
       '<hr />',
-      '<button id="ulozTemu">Ulozit temu</button>'].join('\n');
+      '<button id="ulozTemu">Uložiť tému</button>'].join('\n');
     okno.Bclose.addEventListener ('mousedown', function (e) {
       okno.hide ();
       e.stopPropagation ();
     });
+
     var fileUpload = document.getElementById("fileupload");
     var objectFiles = [];
     fileUpload.onchange = function () {
@@ -209,16 +210,9 @@ avatarAdmin.prototype.moja = function () {
     document.getElementById("ulozTemu").onclick = function () {
       var nazovTemy = document.getElementById('nazovTemy').value;
       var data = {name: nazovTemy, files: objectFiles};
-      console.log(data);
       socket.emit('uloz temu', data);
-
       // TODO ak sa podarilo ulozit tak zavriet okno alebo nieco napisat
     };
   }
 
 }
-///////////////////////////////////////////////////
-
-
-
-
