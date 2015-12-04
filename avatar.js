@@ -112,12 +112,11 @@ var avatarAdmin;
     });
 
     ////////////////////////////////////////////////////
-    self.con.innerHTML = ['<div id=\"avatar-admin-index\" style=\"display:block;\">',
+    self.con.innerHTML = ['<div id=\"avatarAdminIndex\" style=\"display:block;\">',
 '      <button type=\"button\" id=\"pridajTemu\">Pridat novu temu</button><br>',
 '      Zoznam tem:', 
 '      <ul id=\"avatarZoznamTem\"></ul>',
-'      </div>',
-'      <div id=\"avatar-admin-pridaj\" style=\"display:none;\"></div>'].join('\n');
+'      </div>'].join('\n');
     ////////////////////////////////////////////////////
     
 

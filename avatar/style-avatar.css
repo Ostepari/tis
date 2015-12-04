@@ -60,3 +60,11 @@ div.avatar .objekty {
 #avatarResultMessage .successMessage {
 	color: green;
 }
+
+#avatarAdminIndex button {
+	margin-bottom: 10px;
+}
+
+#avatarZoznamTem {
+	margin: 0;
+}
