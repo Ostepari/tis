@@ -104,7 +104,7 @@ io.on('connection', function(socket) {
         // strip off the data: url prefix to get just the base64-encoded bytes
         var data = img.replace(/^data:image\/\w+;base64,/, "");
         var buf = new Buffer(data, 'base64');
-        var imgFormat = '.jpg';
+        var imgFormat = '.png';
         var imgPath = objectPath + '/' + i + imgFormat;
         fs.writeFile(imgPath, buf);
         // nakoniec ulozime odkaz do databazy

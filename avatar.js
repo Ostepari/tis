@@ -155,7 +155,7 @@ var avatarAdmin;
 avatarAdmin.prototype.moja = function () {
   
   document.getElementById("pridajTemu").onclick = function () {
-    var okno = new RWindow(120, 110, 650, 500, 'avatar-skladanie-min.png');
+    var okno = new RWindow(120, 110, 650, 800, 'avatar-skladanie-min.png');
     okno.show();
     okno.lab.innerHTML = 'Admin - Pridaj temu';
     okno.lab.style.textAlign = 'center';
@@ -164,7 +164,17 @@ avatarAdmin.prototype.moja = function () {
     okno.con.innerHTML = ['<div id=\"nahravanieTem\">',
       '<label for=\"nazovTemy\">Názov témy</label>',
       '<input type=\"text\" id=\"nazovTemy\"><br />', 
+      '<label for=\"thumbupload\">Náhľadový obrázok</label>',
+      '<input id=\"thumbupload\" type=\"file\"/>',
+      '<br />',
+      '<label for=\"fileupload\">Obrázky</label>',
       '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
+      '<hr />',
+      '<b>Obrázok náhľadu témy</b>',
+      '<br />',
+      '<br />',
+      '<div id=\"thumbPreview\">',
+      '</div>',
       '<hr />',
       '<b>Náhľad obrázkov</b>',
       '<br />',
@@ -210,20 +220,60 @@ avatarAdmin.prototype.moja = function () {
           alert("Tento prehliadač nepodporuje HTML5 FileReader.");
       }
     }
+    var thumbUpload = document.getElementById("thumbupload");
+    var thumbFile;
+    thumbUpload.onchange = function () {
+      if (typeof (FileReader) != "undefined") {
+          var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+          var dvPreview = document.getElementById("thumbPreview");
+          dvPreview.innerHTML = "";
+          var file = thumbUpload.files[0];
+          if (regex.test(file.name.toLowerCase())) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                  var img = document.createElement("IMG");
+                  img.height = "100";
+                  img.width = "100";
+                  img.src = e.target.result;
+                  dvPreview.appendChild(img);
+                  thumbFile = e.target.result;
+              }
+              reader.readAsDataURL(file);
+          } else {
+              alert(file.name + " nie je validný obrázok.");
+              dvPreview.innerHTML = "";
+              return false;
+              }
+          
+      } else {
+          alert("Tento prehliadač nepodporuje HTML5 FileReader.");
+      }
+    }
+
     document.getElementById("ulozTemu").onclick = function () {
       var nazovTemy = document.getElementById('nazovTemy').value;
-      var data = {name: nazovTemy, files: objectFiles};
       var resultMessage = document.getElementById('avatarResultMessage');
-      if (nazovTemy == '' || objectFiles.length == 0) {
+      if (nazovTemy == '' || objectFiles.length == 0 || thumbUpload.files.length == 0) {
         // ak nie je vyplneny niektory z inputov vypis chybu
         resultMessage.innerHTML = '<span class="errorMessage">Chyba! Nezadali ste názov témy alebo ste nenahrali žiadne obrázky</span>';
       } else {
         // inac posli data do server.js a refreshni okno
+        var data = {name: nazovTemy, files: objectFiles, thumbFile: thumbFile};
         socket.emit('uloz temu', data);
         resultMessage.innerHTML = '<span class="successMessage">Téma bola úspešne uložená</span>';
         document.getElementById('nahravanieTem').innerHTML = ['<label for=\"nazovTemy\">Názov témy</label>',
           '<input type=\"text\" id=\"nazovTemy\"><br />', 
+          '<label for=\"thumbupload\">Náhľadový obrázok</label>',
+          '<input id=\"thumbupload\" type=\"file\"/>',
+          '<br />',
+          '<label for=\"fileupload\">Obrázky</label>',
           '<input id=\"fileupload\" type=\"file\" multiple=\"multiple\" />',
+          '<hr />',
+          '<b>Obrázok náhľadu témy</b>',
+          '<br />',
+          '<br />',
+          '<div id=\"thumbPreview\">',
+          '</div>',
           '<hr />',
           '<b>Náhľad obrázkov</b>',
           '<br />',
@@ -231,7 +281,7 @@ avatarAdmin.prototype.moja = function () {
           '<div id=\"dvPreview\">',
           '</div>',
           '<hr />',
-          '<button id="ulozTemu">Uložiť tému</button>'].join('\n');
+          '<button id="ulozTemu">Uložiť tému</button>',].join('\n');
       }
       // zmaz resultMessage po nejakej dobe
       setTimeout(function(){
