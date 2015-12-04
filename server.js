@@ -1,7 +1,14 @@
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
-var FileReader = require('filereader')
+/*var gulp = require('gulp');
+var concat = require('gulp-concat');
+ 
+gulp.task('scripts', function() {
+  return gulp.src('./avatar/*.js')
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('./avatar/'));
+});*/
 
 var mimeTypes = {
   '.js' : 'text/javascript',
