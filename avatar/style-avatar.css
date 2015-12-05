@@ -69,6 +69,14 @@ div#avatar .objekty {
 	margin: 0;
 }
 
+.zoznamTem {
+	margin-top: 10px;
+	width: 100%;
+	height: 230px;
+	overflow: auto;
+    white-space: nowrap;
+}
+
 ul.thumbnails.image_picker_selector {
   overflow: auto;
   list-style-image: none;
@@ -86,6 +94,7 @@ ul.thumbnails.image_picker_selector {
   ul.thumbnails.image_picker_selector li.group_title {
     float: none; }
   ul.thumbnails.image_picker_selector li {
+  	display:inline-block;
     margin: 0px 12px 12px 0px;
     float: left; }
     ul.thumbnails.image_picker_selector li .thumbnail {
@@ -97,4 +106,4 @@ ul.thumbnails.image_picker_selector {
       ul.thumbnails.image_picker_selector li .thumbnail img {
         -webkit-user-drag: none; }
     ul.thumbnails.image_picker_selector li .thumbnail.selected {
-      background: #0088cc; }
+      background: #fbd52b; }
