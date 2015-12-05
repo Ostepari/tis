@@ -36,16 +36,22 @@ var avatarSkladanie;
       e.stopPropagation ();
       // volame moju funkciu ktora z canvasu spravi fabric.js canvas
       self.moja(); 
+      socket.emit('get zoznam tem', "test");
     });
-
-    avatarSkladanie.prototype.zoznamTem = [];
-    socket.on('zoznam tem', function(data){
+    
+    socket.on('zoznam tem', function(data) { 
+      avatarSkladanie.prototype.zoznamTem = [];  
       data.forEach(function(theme) {
         avatarSkladanie.prototype.zoznamTem.push('<option data-img-src=\"' 
           + theme.thumbPath +'\" value=\"' + theme.id +'\">' + theme.name +'</option>');
       });
       avatarSkladanie.prototype.zoznamTem = avatarSkladanie.prototype.zoznamTem.join('\n');
-    });
+      var element = document.getElementById("zoznamTemPridaj");
+      if (element != null) {
+        element.innerHTML = avatarSkladanie.prototype.zoznamTem;
+      }
+    });  
+    
   };
 
   (function (){
@@ -83,8 +89,9 @@ avatarSkladanie.prototype.moja = function () {
       '<button type=\"button\" id=\"vytvorAvatara\">Pokračovať</button><br>',
       '</div>'].join('\n');
     // pridaj zoznam tem
+    document.getElementById("zoznamTemPridaj").innerHTML = avatarSkladanie.prototype.zoznamTem;;
     // TODO vytvorit horizontalny scroll na posuvanie tem...
-    document.getElementById("zoznamTemPridaj").innerHTML = avatarSkladanie.prototype.zoznamTem;
+    
 
     // vytvor selectovacie obrazky zo selectu
     jQuery("select.image-picker").imagepicker({
@@ -126,6 +133,7 @@ avatarSkladanie.prototype.moja = function () {
         avatarSkladanie.prototype.canvasJeInicializovany = true;
       }
     }
+
     okno.Bclose.addEventListener ('mousedown', function (e) {
       // clear canvas on close
       canvas.clear();
@@ -154,15 +162,7 @@ var avatarAdmin;
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
     
-    var zoznamTem = [];
-    socket.on('zoznam tem', function(data){
-      zoznamTem.push('<ul id=\"avatarZoznamTem\">');
-      data.forEach(function(theme) {
-        zoznamTem.push('<li>' + theme.name + '</li>');
-      });
-      zoznamTem.push('</ul>');
-      zoznamTem = zoznamTem.join('\n');
-    });
+    
 
     ////////////////////////////////////////////////////
     self.con.innerHTML = ['<div id=\"avatarAdminIndex\" style=\"display:block;\">',
@@ -190,8 +190,32 @@ var avatarAdmin;
       
       // zobrazime zoznam tem
       self.moja();
-      document.getElementById("avatarZoznamTem").innerHTML = zoznamTem;
+      socket.on('zoznam tem', function(data) {
+        var zoznamTem = [];
+        zoznamTem.push('<ul id=\"avatarZoznamTem\">');
+        data.forEach(function(theme) {
+          zoznamTem.push('<li>' + theme.name + '</li>');
+        });
+        zoznamTem.push('</ul>');
+        zoznamTem = zoznamTem.join('\n');
+        document.getElementById("avatarZoznamTem").innerHTML = zoznamTem;
+      });
+      socket.emit('get zoznam tem', "test");
     });
+    
+    socket.on('zoznam tem', function(data) { 
+      avatarAdmin.prototype.zoznamTem = [];  
+      avatarAdmin.prototype.zoznamTem.push('<ul id=\"avatarZoznamTem\">');
+        data.forEach(function(theme) {
+          avatarAdmin.prototype.zoznamTem.push('<li>' + theme.name + '</li>');
+        });
+        avatarAdmin.prototype.zoznamTem.push('</ul>');
+      avatarAdmin.prototype.zoznamTem = avatarAdmin.prototype.zoznamTem.join('\n');
+      var element = document.getElementById("avatarZoznamTem");
+      if (element != null) {
+        element.innerHTML = avatarAdmin.prototype.zoznamTem;
+      }
+    });  
 
   };
 
@@ -205,7 +229,10 @@ var avatarAdmin;
 
 ///////////////////////////////////////////////////
 avatarAdmin.prototype.moja = function () {
-  
+  var element = document.getElementById("avatarZoznamTem");
+  if (element != null) {
+    element.innerHTML = avatarAdmin.prototype.zoznamTem;
+  }
   document.getElementById("pridajTemu").onclick = function () {
     var okno = new RWindow(120, 110, 650, 800, 'avatar-skladanie-min.png');
     okno.show();

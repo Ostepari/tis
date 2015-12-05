@@ -97,9 +97,9 @@ function saveImg (img, path) {
 
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
-  Theme.findAll().then(function(themes) {
+  /*Theme.findAll().then(function(themes) {
      socket.emit('zoznam tem', themes);
-  });
+  });*/
 
   socket.on('avatarJSON', function(data) {
     Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1 });
@@ -121,6 +121,13 @@ io.on('connection', function(socket) {
         // nakoniec ulozime odkaz do databazy
         Objekt.create({ path: imgPath, order: 0, theme_id: theme.id });
       }
+    });
+    
+  });
+
+  socket.on('get zoznam tem', function(data) {
+    Theme.findAll().then(function(themes) {
+     socket.emit('zoznam tem', themes);
     });
   });
 });
