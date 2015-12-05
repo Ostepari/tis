@@ -5,8 +5,6 @@ var Users = {
   }
 }
 
-
-var avatarData;
 var avatarSkladanie;
 
 (function () {
@@ -59,11 +57,6 @@ var avatarSkladanie;
       if (element != null) {
         element.innerHTML = avatarSkladanie.prototype.zoznamTem;
       }
-    }); 
-
-    socket.on('avatar id a obrazky', function(data) {
-      console.log(data.id);
-      avatarData = data;
     }); 
     
   };
@@ -125,40 +118,40 @@ avatarSkladanie.prototype.moja = function () {
       // simulacia usera na realnom serveri
       var user = Users.currentLoggedIn();
       var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
-      socket.emit("pridaj avatara", data);
 
       var objekty = [];
-      for (var i = 0; i < avatarData.objekty.length; i++) {
-        var objekt = avatarData.objekty[i];
-        console.log(objekt.path);
-        objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
-      }
-      objekty = objekty.join('\n');
-      pridajAvataraOkno.innerHTML = [
-        '<div id=\"avatar\">',
-        '  <div id=\"canvasPanel\">',
-        '    <div class=\"tool-wrapper\">',
-        '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
-        '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
-        '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
-        '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
-        '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" onclick=\"avatarUloz()\"><i class=\"fa fa-floppy-o\"></i></button>',
-        '    </div>',
-        '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
-        '    Your browser does not support the HTML5 canvas tag.',
-        '    </canvas>',
-        '  </div>',
-        '',
-        '  <div class=\"objekty\" div="avatarObjekty">',
-        objekty,
-        '  </div>',
-        '</div>'].join('\n');
-      
-      // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
-      if (!this.canvasJeInicializovany) {
-        canvas = new fabric.Canvas('myCanvas');
-        avatarSkladanie.prototype.canvasJeInicializovany = true;
-      }
+      // socket a callback na data
+      socket.emit("pridaj avatara", data, function (data) {
+        for (var i = 0; i < data.objekty.length; i++) {
+          var objekt = data.objekty[i];
+          objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
+        }
+        objekty = objekty.join('\n');
+        pridajAvataraOkno.innerHTML = [
+          '<div id=\"avatar\">',
+          '  <div id=\"canvasPanel\">',
+          '    <div class=\"tool-wrapper\">',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" onclick=\"avatarUloz()\"><i class=\"fa fa-floppy-o\"></i></button>',
+          '    </div>',
+          '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
+          '    Your browser does not support the HTML5 canvas tag.',
+          '    </canvas>',
+          '  </div>',
+          '',
+          '  <div class=\"objekty\" div="avatarObjekty">',
+          objekty,
+          '  </div>',
+          '</div>'].join('\n');
+         // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
+        if (!this.canvasJeInicializovany) {
+          canvas = new fabric.Canvas('myCanvas');
+          avatarSkladanie.prototype.canvasJeInicializovany = true;
+        }
+      });
     }
 
     okno.Bclose.addEventListener ('mousedown', function (e) {

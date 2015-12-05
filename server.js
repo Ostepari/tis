@@ -124,12 +124,12 @@ io.on('connection', function(socket) {
     });
   });
 
-  socket.on('pridaj avatara', function(data) {
+  socket.on('pridaj avatara', function(data, fn) {
     Avatar.create({ name: data.name, json: "", theme_id: data.theme_id, user_id: data.user_id} ).then(function(avatar) {      
       // najdi vsetky objekty k teme a posli avatar.id a obrazky
       Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
         data = {id: avatar.id, objekty: objekty};
-        socket.emit('avatar id a obrazky', data);
+        fn(data);
       }); 
     });
   });
