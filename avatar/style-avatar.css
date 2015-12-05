@@ -1,26 +1,26 @@
-div.avatar {
+div#avatar {
 	width: 800px;
 	height: 400px;
 	background-color: rgb(251, 213, 43);
 }
 
-div.avatar #canvasPanel {
+div#avatar #canvasPanel {
 	float: left;
 	width: 400px;
 }
 
-div.avatar .tool-wrapper {
+div#avatar .tool-wrapper {
 	height: 40px;
 	line-height: 40px;
 	padding: 5px;
 	background-color: #F1EEEE;
 }
 
-div.avatar #myCanvas {
+div#avatar #myCanvas {
 	background-color: white;
 }
 
-div.avatar .btn-default {
+div#avatar .btn-default {
 	display: inline-block;
 	background-color: #fff;
 	margin-bottom: 0;
@@ -29,21 +29,21 @@ div.avatar .btn-default {
     line-height: 1.5;
 }
 
-div.avatar .btn-default:hover {
+div#avatar .btn-default:hover {
 	background-color: #e6e6e6;
 	border-color: #adadad;
 	cursor: pointer;
 }
 
-div.avatar .avatar-objekt {
+div#avatar .avatar-objekt {
 	max-width: 60px;
 }
 
-div.avatar .avatar-objekt:hover {
+div#avatar .avatar-objekt:hover {
 	cursor: pointer;
 }
 
-div.avatar .objekty {
+div#avatar .objekty {
 	padding: 20px;
 	float: right;
 	width: 360px;
@@ -68,3 +68,33 @@ div.avatar .objekty {
 #avatarZoznamTem {
 	margin: 0;
 }
+
+ul.thumbnails.image_picker_selector {
+  overflow: auto;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px; }
+  ul.thumbnails.image_picker_selector ul {
+    overflow: auto;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px; }
+  ul.thumbnails.image_picker_selector li.group_title {
+    float: none; }
+  ul.thumbnails.image_picker_selector li {
+    margin: 0px 12px 12px 0px;
+    float: left; }
+    ul.thumbnails.image_picker_selector li .thumbnail {
+      padding: 6px;
+      border: 1px solid #dddddd;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none; }
+      ul.thumbnails.image_picker_selector li .thumbnail img {
+        -webkit-user-drag: none; }
+    ul.thumbnails.image_picker_selector li .thumbnail.selected {
+      background: #0088cc; }
