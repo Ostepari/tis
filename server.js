@@ -101,10 +101,6 @@ io.on('connection', function(socket) {
      socket.emit('zoznam tem', themes);
   });*/
 
-  socket.on('avatarJSON', function(data) {
-    Avatar.create({ name: 'test', json: data, user_id: 1, theme_id: 1 });
-  });
-
   socket.on('uloz temu', function(data) {
     var objectPath = 'upload/temy/' + uniqeString();
     var thumbnailImgPath = objectPath + '/' + 'thumbnail.png';
@@ -134,14 +130,15 @@ io.on('connection', function(socket) {
     });
   });
   
-  socket.on('updatuj avatara', function(data) {
-    Avatar.find({ where: {id: data.avatar_id} }).on('success', function(avatar) {
-      if (project) { // if the record exists in the db
+  socket.on('updatuj avatara', function(data, fn) {
+    Avatar.find({ where: {id: data.avatar_id} }).then(function(avatar) {
+      if (avatar) { // if the record exists in the db
         avatar.updateAttributes({
           json: data.json
-        }).success(function() {});
+        });
       }
-    })
+    });
+    fn("updated");
   });
 
   socket.on('get zoznam tem', function(data) {

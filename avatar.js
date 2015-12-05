@@ -122,8 +122,10 @@ avatarSkladanie.prototype.moja = function () {
       var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
 
       var objekty = [];
+      var avatar_id;
       // socket a callback na data
       socket.emit("pridaj avatara", data, function (data) {
+        avatar_id = data.id;
         for (var i = 0; i < data.objekty.length; i++) {
           var objekt = data.objekty[i];
           objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
@@ -137,7 +139,7 @@ avatarSkladanie.prototype.moja = function () {
           '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
           '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
           '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
-          '      <button type=\"button\" class=\"btn-default \" title=\"Uložiť\" onclick=\"avatarUloz()\"><i class=\"fa fa-floppy-o\"></i></button>',
+          '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
           '    </div>',
           '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
           '    Your browser does not support the HTML5 canvas tag.',
@@ -153,7 +155,15 @@ avatarSkladanie.prototype.moja = function () {
           canvas = new fabric.Canvas('myCanvas');
           avatarSkladanie.prototype.canvasJeInicializovany = true;
         }
+        document.getElementById("avatarUloz").onclick = function () {
+          var json = JSON.stringify( canvas.toJSON() );
+          data = {avatar_id: avatar_id, json: json};
+          socket.emit('updatuj avatara', data, function (data) {
+            // TODO vypisat ze bola tema ulozena
+          });
+        }
       });
+      
     }
 
     okno.Bclose.addEventListener ('mousedown', function (e) {
