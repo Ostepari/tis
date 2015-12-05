@@ -31,7 +31,7 @@ var avatarSkladanie;
     '<hr>',
     ' <div class="zoznamAvatarov">',
       '   <select class=\"image-picker2 show-labels show-html\" id="zoznamAvatarovPouzivatela">',
-      '   <option data-img-label="Awww" data-img-src="http://rvera.github.io/image-picker/img/03.png" value="1">Cute Kitten 1</option>',
+      '   <option data-img-label="Awww" data-img-src="http://placekitten.com/220/200" value="1">Cute Kitten 1</option>',
       '   <option data-img-label="Awww" data-img-src="http://rvera.github.io/image-picker/img/03.png" value="2">Cute Kitten 1</option>',
       '   </select>',
       ' </div>',

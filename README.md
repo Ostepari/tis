@@ -21,6 +21,3 @@ Technológie a programovacie jazyky:
 
  * [Dokumenty](https://github.com/Ostepari/tis/tree/dokumenty) k projektu
  * [Stránka predmetu](http://dai.fmph.uniba.sk/courses/tvorbaIS/) "Tvorba informačných systémov"
-
-### zavislosti
-na spravny chod aplikacie treba mat nainstalovany a spravne nakonfigurovany hlavne co sa windowsu tyka [node gip](https://github.com/nodejs/node-gyp#installation!)
