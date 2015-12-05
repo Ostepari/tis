@@ -83,10 +83,25 @@ var avatarSkladanie;
 
 avatarSkladanie.prototype.canvasJeInicializovany = false;
 avatarSkladanie.prototype.moja = function () {
-  // vytvor selectovacie obrazky zo selectu
-  jQuery("select.image-picker2").imagepicker({
-    show_label  : true
+  // simulacia usera na realnom serveri
+  var user = Users.currentLoggedIn();
+  console.log(user.id);
+  socket.emit('get zoznam avatarov', user, function (data) {
+    var avatari = [];
+    for (var i = 0; i < data.length; i++) {
+      var objekt = data[i];
+      avatari.push('<option data-img-src="' + objekt.path + '" value="' + objekt.id + '">' + objekt.name + '</option>');
+    }
+    avatari = avatari.join('\n');
+    
+    document.getElementById("zoznamAvatarovPouzivatela").innerHTML = avatari;
+    // vytvor selectovacie obrazky zo selectu
+    jQuery("select.image-picker2").imagepicker({
+      show_label  : true
+    });
   });
+
+  
   document.getElementById("pridajAvatara").onclick = function () {
     var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
     okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
@@ -131,8 +146,7 @@ avatarSkladanie.prototype.moja = function () {
       var nazovAvatara = document.getElementById('nazovAvatara').value;
       var e = document.getElementById("zoznamTemPridaj");
       var themeId = e.options[e.selectedIndex].value;
-      // simulacia usera na realnom serveri
-      var user = Users.currentLoggedIn();
+      
       var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
 
       var objekty = [];

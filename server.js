@@ -156,6 +156,13 @@ io.on('connection', function(socket) {
     fn("updated");
   });
 
+  socket.on('get zoznam avatarov', function(data, fn) {
+    Avatar.findAll({ where: {user_id: data.id} }).then(function(avatars) {
+      fn(avatars);
+    });
+    
+  });
+
   socket.on('get zoznam tem', function(data) {
     Theme.findAll().then(function(themes) {
      socket.emit('zoznam tem', themes);
