@@ -122,7 +122,26 @@ io.on('connection', function(socket) {
         Objekt.create({ path: imgPath, order: 0, theme_id: theme.id });
       }
     });
-    
+  });
+
+  socket.on('pridaj avatara', function(data) {
+    Avatar.create({ name: data.name, json: "", theme_id: data.theme_id, user_id: data.user_id} ).then(function(avatar) {      
+      // najdi vsetky objekty k teme a posli avatar.id a obrazky
+      Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
+        data = {id: avatar.id, objekty: objekty};
+        socket.emit('avatar id a obrazky', data);
+      }); 
+    });
+  });
+  
+  socket.on('updatuj avatara', function(data) {
+    Avatar.find({ where: {id: data.avatar_id} }).on('success', function(avatar) {
+      if (project) { // if the record exists in the db
+        avatar.updateAttributes({
+          json: data.json
+        }).success(function() {});
+      }
+    })
   });
 
   socket.on('get zoznam tem', function(data) {

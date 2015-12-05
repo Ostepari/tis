@@ -1,3 +1,12 @@
+// simulacia usera na realnom serveri
+var Users = {
+  currentLoggedIn: function () {
+    return {id:0}
+  }
+}
+
+
+var avatarData;
 var avatarSkladanie;
 
 (function () {
@@ -50,7 +59,12 @@ var avatarSkladanie;
       if (element != null) {
         element.innerHTML = avatarSkladanie.prototype.zoznamTem;
       }
-    });  
+    }); 
+
+    socket.on('avatar id a obrazky', function(data) {
+      console.log(data.id);
+      avatarData = data;
+    }); 
     
   };
 
@@ -105,6 +119,21 @@ avatarSkladanie.prototype.moja = function () {
 
     var pridajAvataraOkno = document.getElementById("pridajAvataraOkno");
     document.getElementById("vytvorAvatara").onclick = function () {
+      var nazovAvatara = document.getElementById('nazovAvatara').value;
+      var e = document.getElementById("zoznamTemPridaj");
+      var themeId = e.options[e.selectedIndex].value;
+      // simulacia usera na realnom serveri
+      var user = Users.currentLoggedIn();
+      var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
+      socket.emit("pridaj avatara", data);
+
+      var objekty = [];
+      for (var i = 0; i < avatarData.objekty.length; i++) {
+        var objekt = avatarData.objekty[i];
+        console.log(objekt.path);
+        objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
+      }
+      objekty = objekty.join('\n');
       pridajAvataraOkno.innerHTML = [
         '<div id=\"avatar\">',
         '  <div id=\"canvasPanel\">',
@@ -120,13 +149,11 @@ avatarSkladanie.prototype.moja = function () {
         '    </canvas>',
         '  </div>',
         '',
-        '  <div class=\"objekty\">',
-        '    <img src=\"upload/temy/1/eyes.png\" onclick=\"addImage(\'eyes.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
-        '    <img src=\"upload/temy/1/nose.png\" onclick=\"addImage(\'nose.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
-        '    <img src=\"upload/temy/1/usta.png\" onclick=\"addImage(\'usta.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
-        '    <img src=\"upload/temy/1/usta2.png\" onclick=\"addImage(\'usta2.png\', 0.1, 0.25)\" class=\"avatar-objekt\">',
+        '  <div class=\"objekty\" div="avatarObjekty">',
+        objekty,
         '  </div>',
         '</div>'].join('\n');
+      
       // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
       if (!this.canvasJeInicializovany) {
         canvas = new fabric.Canvas('myCanvas');

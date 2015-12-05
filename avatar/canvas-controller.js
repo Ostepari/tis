@@ -74,10 +74,10 @@ addTriangle = function() {
  * @param      {<type>}  minScale   { description }
  * @param      {<type>}  maxScale   { description }
  */     
-function addImage(imageName, minScale, maxScale) {
+function addImage(imagePath, minScale, maxScale) {
     var coord = getRandomLeftTop();
 
-    fabric.Image.fromURL('upload/temy/1/' + imageName, function(image) {
+    fabric.Image.fromURL(imagePath, function(image) {
 
       image.set({
         left: coord.left,
