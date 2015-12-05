@@ -6,7 +6,7 @@ div#avatar {
 
 div#avatar #canvasPanel {
 	float: left;
-	width: 400px;
+	width: 350px;
 }
 
 div#avatar .tool-wrapper {
@@ -46,7 +46,7 @@ div#avatar .avatar-objekt:hover {
 div#avatar .objekty {
 	padding: 20px;
 	float: right;
-	width: 360px;
+	width: 410px;
 }
 
 #avatarResultMessage {

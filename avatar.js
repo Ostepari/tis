@@ -155,7 +155,7 @@ avatarSkladanie.prototype.moja = function () {
           '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
           '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
           '    </div>',
-          '    <canvas id=\"myCanvas\" width=\"400\" height=\"350\">',
+          '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
           '    Your browser does not support the HTML5 canvas tag.',
           '    </canvas>',
           '  </div>',
