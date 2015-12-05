@@ -23,7 +23,18 @@ var avatarSkladanie;
     ////////////////////////////////////////////////////
     self.con.innerHTML = [
     '<div class=\"avatarMain\">',
-    '<button id="pridajAvatara">Pridaj avatara</button>',
+    '<button id="pridajAvatara">Pridať nového avatara</button>',
+    '<button id="pridajAvatara">Upraviť zvoleného avatara</button>',
+    '<button id="pridajAvatara">Nastaviť ako predvoleného</button>',
+    '<div id="aktualnyAvatar"></div>',
+    '<div></div>',
+    '<hr>',
+    ' <div class="zoznamAvatarov">',
+      '   <select class=\"image-picker2 show-labels show-html\" id="zoznamAvatarovPouzivatela">',
+      '   <option data-img-label="Awww" data-img-src="http://rvera.github.io/image-picker/img/03.png" value="1">Cute Kitten 1</option>',
+      '   <option data-img-label="Awww" data-img-src="http://rvera.github.io/image-picker/img/03.png" value="2">Cute Kitten 1</option>',
+      '   </select>',
+      ' </div>',
     '</div>'].join('\n');
     ////////////////////////////////////////////////////
     
@@ -72,7 +83,10 @@ var avatarSkladanie;
 
 avatarSkladanie.prototype.canvasJeInicializovany = false;
 avatarSkladanie.prototype.moja = function () {
-  
+  // vytvor selectovacie obrazky zo selectu
+  jQuery("select.image-picker2").imagepicker({
+    show_label  : true
+  });
   document.getElementById("pridajAvatara").onclick = function () {
     var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
     okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
@@ -157,7 +171,9 @@ avatarSkladanie.prototype.moja = function () {
         }
         document.getElementById("avatarUloz").onclick = function () {
           var json = JSON.stringify( canvas.toJSON() );
-          data = {avatar_id: avatar_id, json: json};
+          var dataImg = canvas.toDataURL('png');
+          console.log(dataImg);
+          data = {avatar_id: avatar_id, json: json, dataImg: dataImg};
           socket.emit('updatuj avatara', data, function (data) {
             // TODO vypisat ze bola tema ulozena
           });

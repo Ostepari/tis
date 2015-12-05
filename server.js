@@ -65,6 +65,7 @@ var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
+  path: Sequelize.TEXT,
   user_id: Sequelize.INTEGER,
   theme_id: Sequelize.INTEGER
 })
@@ -95,6 +96,15 @@ function saveImg (img, path) {
   fs.writeFile(path, buf);
 }
 
+// vytvori priecinok a ked neexistuje tak neurobi nic
+var mkdirSync = function (path) {
+  try {
+    fs.mkdirSync(path);
+  } catch(e) {
+    if ( e.code != 'EEXIST' ) throw e;
+  }
+}
+
 io.on('connection', function(socket) {
   // query na zoznam vsetkych tem, ktore potom posleme klientovi
   /*Theme.findAll().then(function(themes) {
@@ -121,6 +131,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('pridaj avatara', function(data, fn) {
+    var avatarPath = 'upload/avatary/' + data.user_id;
+    mkdirSync(avatarPath);
     Avatar.create({ name: data.name, json: "", theme_id: data.theme_id, user_id: data.user_id} ).then(function(avatar) {      
       // najdi vsetky objekty k teme a posli avatar.id a obrazky
       Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
@@ -133,9 +145,12 @@ io.on('connection', function(socket) {
   socket.on('updatuj avatara', function(data, fn) {
     Avatar.find({ where: {id: data.avatar_id} }).then(function(avatar) {
       if (avatar) { // if the record exists in the db
+        var avatarPath = 'upload/avatary/' + avatar.user_id + '/' + avatar.id + '.png';
         avatar.updateAttributes({
-          json: data.json
+          json: data.json,
+          path: avatarPath
         });
+        saveImg(data.dataImg, avatarPath);
       }
     });
     fn("updated");

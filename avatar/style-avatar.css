@@ -97,6 +97,9 @@ ul.thumbnails.image_picker_selector {
   	display:inline-block;
     margin: 0px 12px 12px 0px;
     float: left; }
+  ul.thumbnails.image_picker_selector li:hover {
+  	cursor: pointer;
+  }
     ul.thumbnails.image_picker_selector li .thumbnail {
       padding: 6px;
       border: 1px solid #dddddd;
