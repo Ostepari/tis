@@ -24,8 +24,8 @@ var avatarSkladanie;
     self.con.innerHTML = [
     '<div class=\"avatarMain\">',
     '<button id="pridajAvatara">Pridať nového avatara</button>',
-    '<button id="pridajAvatara">Upraviť zvoleného avatara</button>',
-    '<button id="pridajAvatara">Nastaviť ako predvoleného</button>',
+    '<button id="upravZvolenehoAvatara">Upraviť zvoleného avatara</button>',
+    '<button id="nastavAkoPrevolenehoAvatara">Nastaviť ako predvoleného</button>',
     '<div id="aktualnyAvatar"></div>',
     '<div></div>',
     '<hr>',
@@ -38,7 +38,6 @@ var avatarSkladanie;
     '</div>'].join('\n');
     ////////////////////////////////////////////////////
     
-
     this.Bclose.style.visibility = 'visible';
     this.Bclose.addEventListener ('mousedown', function (e) {
       self.hide ();
@@ -101,6 +100,13 @@ avatarSkladanie.prototype.moja = function () {
     });
   });
 
+  document.getElementById("upravZvolenehoAvatara").onclick = function () {
+    // TODO podobne ako pridajAvatara
+  }
+
+  document.getElementById("nastavAkoPrevolenehoAvatara").onclick = function () {
+    // TODO
+  }
   
   document.getElementById("pridajAvatara").onclick = function () {
     var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
@@ -130,7 +136,6 @@ avatarSkladanie.prototype.moja = function () {
     document.getElementById("zoznamTemPridaj").innerHTML = avatarSkladanie.prototype.zoznamTem;;
     // TODO vytvorit horizontalny scroll na posuvanie tem...
     
-
     // vytvor selectovacie obrazky zo selectu
     jQuery("select.image-picker").imagepicker({
       show_label  : true
@@ -223,9 +228,7 @@ var avatarAdmin;
     this.lab.innerHTML = 'Admin - Vyskladaj si avatara';
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
-    
-    
-
+  
     ////////////////////////////////////////////////////
     self.con.innerHTML = ['<div id=\"avatarAdminIndex\" style=\"display:block;\">',
 '      <button type=\"button\" id=\"pridajTemu\">Pridat novu temu</button><br>',
@@ -234,14 +237,12 @@ var avatarAdmin;
 '      </div>'].join('\n');
     ////////////////////////////////////////////////////
     
-
     this.Bclose.style.visibility = 'visible';
     this.Bclose.addEventListener ('mousedown', function (e) {
       self.hide ();
       menu.Add (self.ico);
       e.stopPropagation ();
     });
-
 
     this.ico = Asset.image ('obrazky/avatar-admin.png');
     menu.Add (this.ico);
