@@ -102,6 +102,68 @@ avatarSkladanie.prototype.moja = function () {
 
   document.getElementById("upravZvolenehoAvatara").onclick = function () {
     // TODO podobne ako pridajAvatara
+    var e = document.getElementById("zoznamAvatarovPouzivatela");
+    var avatarId = e.options[e.selectedIndex].value;
+
+    socket.emit("get avatar", avatarId, function (data) {
+      var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
+      okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
+      okno.resizeable = false;
+      okno.show();
+      okno.lab.innerHTML = 'Admin - Uprav avatara';
+      okno.lab.style.textAlign = 'center';
+      okno.lab.style.marginLeft = '0px';
+      okno.Bclose.style.visibility = 'visible';
+
+      var objekty = [];
+      for (var i = 0; i < data.objekty.length; i++) {
+        var objekt = data.objekty[i];
+        objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
+      }
+      objekty = objekty.join('\n');
+
+      okno.con.innerHTML = [
+          '<div id=\"avatar\">',
+          '  <div id=\"canvasPanel\">',
+          '    <div class=\"tool-wrapper\">',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
+          '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
+          '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
+          '    </div>',
+          '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
+          '    Your browser does not support the HTML5 canvas tag.',
+          '    </canvas>',
+          '  </div>',
+          '',
+          '  <div class=\"objekty\" div="avatarObjekty">',
+          objekty,
+          '  </div>',
+          '</div>'].join('\n');
+      // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
+      if (!this.canvasJeInicializovany) {
+        canvas = new fabric.Canvas('myCanvas');
+        avatarSkladanie.prototype.canvasJeInicializovany = true;
+      }
+      loadJSON(data.json);
+
+      okno.Bclose.addEventListener ('mousedown', function (e) {
+        okno.hide ();
+        e.stopPropagation ();
+      });
+
+      document.getElementById("avatarUloz").onclick = function () {
+        var json = JSON.stringify( canvas.toJSON() );
+        var dataImg = canvas.toDataURL('png');
+        
+        data = {avatar_id: data.id, json: json, dataImg: dataImg};
+        socket.emit('updatuj avatara', data, function (data) {
+          // TODO vypisat ze bola tema ulozena
+        });
+      }
+    });
+
   }
 
   document.getElementById("nastavAkoPrevolenehoAvatara").onclick = function () {

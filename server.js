@@ -146,6 +146,7 @@ io.on('connection', function(socket) {
     Avatar.find({ where: {id: data.avatar_id} }).then(function(avatar) {
       if (avatar) { // if the record exists in the db
         var avatarPath = 'upload/avatary/' + avatar.user_id + '/' + avatar.id + '.png';
+        // TODO pridat +"?timestamp=" + new Date().getTime()); aby sa nam refreshovali obrazky 
         avatar.updateAttributes({
           json: data.json,
           path: avatarPath
@@ -161,6 +162,17 @@ io.on('connection', function(socket) {
       fn(avatars);
     });
     
+  });
+
+  socket.on('get avatar', function(avatarId, fn) {
+    var data;
+    Avatar.find({ where: {id: avatarId} }).then(function(avatar) {
+      Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
+        data = {id: avatar.id, objekty: objekty, json: avatar.json};
+        console.log(data);
+        fn(data);
+      });
+    });  
   });
 
   socket.on('get zoznam tem', function(data) {
