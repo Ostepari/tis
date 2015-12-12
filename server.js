@@ -131,6 +131,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('pridaj avatara', function(data, fn) {
+    // ak nie je vytvoreny priecinok tak to spadne na chybe
+    mkdirSync('upload/avatary'); 
     var avatarPath = 'upload/avatary/' + data.user_id;
     mkdirSync(avatarPath);
     Avatar.create({ name: data.name, json: "", theme_id: data.theme_id, user_id: data.user_id} ).then(function(avatar) {      
