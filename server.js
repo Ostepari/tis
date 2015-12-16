@@ -43,20 +43,11 @@ var server = http.createServer(function (request, response) {
 
 }).listen(8080);
 
-var Sequelize = require('sequelize')
-// database, user, password
-//var sequelize = new Sequelize('avatar', 'root', '')
-var sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
-  },
-
-  // SQLite only
-  storage: 'database.sqlite'
+sequelize = new Sequelize(process.env.DATABASE_URL, {
+  logging: false,
+  dialectOptions: {
+    ssl: true /* for SSL config since Heroku gives you this out of the box */
+  }
 });
 
 // definicia tabuliek
