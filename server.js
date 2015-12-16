@@ -43,7 +43,10 @@ var server = http.createServer(function (request, response) {
 
 }).listen(8080);
 
-sequelize = new Sequelize(process.env.DATABASE_URL, {
+var Sequelize = require('sequelize')
+// database, user, password
+//var sequelize = new Sequelize('avatar', 'root', '')
+var sequelize = new Sequelize(process.env.DATABASE_URL, {
   logging: false,
   dialectOptions: {
     ssl: true /* for SSL config since Heroku gives you this out of the box */
