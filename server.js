@@ -44,14 +44,17 @@ var server = http.createServer(function (request, response) {
 }).listen(process.env.PORT || 8080)
 
 var Sequelize = require('sequelize')
-// database, user, password
-//var sequelize = new Sequelize('avatar', 'root', '')
-var sequelize = new Sequelize(process.env.DATABASE_URL, {
-  logging: false,
-  dialectOptions: {
-    ssl: true /* for SSL config since Heroku gives you this out of the box */
-  }
-});
+
+// LOCAL DB SETTINGS, user, password
+var sequelize = new Sequelize('avatar', 'root', '')
+
+// HEROKU DB SETTINGS odkomentovat pre deploy na heroku
+// var sequelize = new Sequelize(process.env.DATABASE_URL, {
+//   logging: false,
+//   dialectOptions: {
+//     ssl: true /* for SSL config since Heroku gives you this out of the box */
+//   }
+// });
 
 // definicia tabuliek
 var Theme = sequelize.define('Theme', {

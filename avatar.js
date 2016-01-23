@@ -292,11 +292,31 @@ var avatarAdmin;
     this.lab.style.marginLeft = '0px';
   
     ////////////////////////////////////////////////////
-    self.con.innerHTML = ['<div id=\"avatarAdminIndex\" style=\"display:block;\">',
-'      <button type=\"button\" id=\"pridajTemu\">Pridat novu temu</button><br>',
-'      Zoznam tem:', 
-'      <ul id=\"avatarZoznamTem\"></ul>',
-'      </div>'].join('\n');
+    
+
+    this.PridajTemu = new Element('button', {
+        html: 'Pridaj temu',
+        styles: {
+            display: 'block',
+            border: '1px solid black',
+            cursor: 'pointer',
+            padding: '0, 0, 10px, 0'
+        },
+        events: {
+            click: function(){
+                self.hide ();
+                menu.Add (self.ico);
+                pridajTemuOkno();
+               
+            },
+        }
+    });
+    this.con.appendChild(this.PridajTemu);
+    this.Zoznam = new Element('ul', {
+        id: 'avatarZoznamTem',
+    });
+    this.con.appendChild(this.Zoznam);
+    
     ////////////////////////////////////////////////////
     
     this.Bclose.style.visibility = 'visible';
@@ -358,7 +378,10 @@ avatarAdmin.prototype.moja = function () {
   if (element != null) {
     element.innerHTML = avatarAdmin.prototype.zoznamTem;
   }
-  document.getElementById("pridajTemu").onclick = function () {
+}
+
+
+var pridajTemuOkno = function () {
     var okno = new RWindow(120, 110, 650, 800, 'avatar-skladanie-min.png');
     okno.show();
     okno.lab.innerHTML = 'Admin - Pridaj temu';
@@ -453,7 +476,6 @@ avatarAdmin.prototype.moja = function () {
           alert("Tento prehliadač nepodporuje HTML5 FileReader.");
       }
     }
-
     document.getElementById("ulozTemu").onclick = function () {
       var nazovTemy = document.getElementById('nazovTemy').value;
       var resultMessage = document.getElementById('avatarResultMessage');
@@ -492,5 +514,4 @@ avatarAdmin.prototype.moja = function () {
         resultMessage.innerHTML = '';
       }, 2000);
     };
-  }
 }
