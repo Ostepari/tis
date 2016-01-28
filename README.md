@@ -25,3 +25,9 @@
  * [5 týžden - 2](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_5_2.txt) @ 08. 11. 2015 - 18:00
  * [6 týžden - 1](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_6_1.txt) @ 10. 11. 2015 - 13:10
  * [6 týžden - 2](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_6_2.txt) @ 10. 11. 2015 - 17:30
+ * [7 týžden - 1](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_7_1.txt) @ 
+ * [7 týžden - 2](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_7_2.txt) @ 
+ * [8 týžden - 1](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_8_1.txt) @ 
+ * [8 týžden - 2](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_8_2.txt) @ 
+ * [9 týžden - 1](https://github.com/Ostepari/tis/blob/dokumenty/zapisnice_9_1.txt) @ 
+
