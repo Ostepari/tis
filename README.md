@@ -3,8 +3,13 @@
 ![Ganttov diagram](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/ganttov_diagram.jpg)
 
 ### Katalóg požiadaviek
+* [Ganttov diagram](https://github.com/Ostepari/tis/blob/dokumenty/ganttov_diagram.jpg) @ 1 verzia
 * [Katalóg požiadaviek](https://github.com/Ostepari/tis/blob/dokumenty/katalog-poziadaviek.pdf) @ 2 verzia
 * [Konceptuálna analýza](https://github.com/Ostepari/tis/blob/dokumenty/konceptualna-analyza.pdf) @ 2 verzia
+* [Analýza technológií](https://github.com/Ostepari/tis/blob/dokumenty/analyza-technologii.pdf) @ 1 verzia
+* [Návrh](https://github.com/Ostepari/tis/blob/dokumenty/navrh.pdf) @ 1 verzia
+* [Testovacie scenáre](https://github.com/Ostepari/tis/blob/dokumenty/testovacie_scenare.pdf) @ 1 verzia
+* [Záverečná správa](https://github.com/Ostepari/tis/blob/dokumenty/zaverecna_sprava.pdf) @ 1 verzia
 
 ### Zápisnice zo stretnutí
 
