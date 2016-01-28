@@ -177,8 +177,7 @@ avatarSkladanie.prototype.moja = function () {
     okno.show();
     okno.lab.innerHTML = 'Admin - Pridaj avatara';
     okno.lab.style.textAlign = 'center';
-    okno.lab.style.marginLeft = '0px';
-    okno.Bclose.style.visibility = 'visible';
+    okno.lab.style.marginLeft = '0px';    okno.Bclose.style.visibility = 'visible';
 
     okno.con.innerHTML = [
       '<div id=\"pridajAvataraOkno\">',
