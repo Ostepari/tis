@@ -2,7 +2,7 @@
 ### Ganttov diagram
 ![Ganttov diagram](https://raw.githubusercontent.com/Ostepari/tis/dokumenty/ganttov_diagram.jpg)
 
-### Katalóg požiadaviek
+### Ostatné dokumenty
 * [Ganttov diagram](https://github.com/Ostepari/tis/blob/dokumenty/ganttov_diagram.jpg) @ 1 verzia
 * [Katalóg požiadaviek](https://github.com/Ostepari/tis/blob/dokumenty/katalog-poziadaviek.pdf) @ 2 verzia
 * [Konceptuálna analýza](https://github.com/Ostepari/tis/blob/dokumenty/konceptualna-analyza.pdf) @ 2 verzia
