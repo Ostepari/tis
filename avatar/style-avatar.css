@@ -69,12 +69,16 @@ div#avatar .objekty {
 	margin: 0;
 }
 
-.zoznamTem {
+.zoznamTem, .zoznamAvatarov {
 	margin-top: 10px;
 	width: 100%;
 	height: 230px;
-	overflow: auto;
-    white-space: nowrap;
+	overflow-x: auto;
+  white-space: nowrap;
+}
+
+.zoznamAvatarov {
+  height: 430px;
 }
 
 ul.thumbnails.image_picker_selector {

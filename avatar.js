@@ -19,7 +19,7 @@ var avatarSkladanie;
 (function () {
 
   avatarSkladanie = function () {
-    RWindow.call (this, 100, 90, 830, 450, 'avatar-skladanie-min.png');
+    RWindow.call (this, 100, 90, 830, 550, 'avatar-skladanie-min.png');
     var self = this;
 
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
@@ -195,7 +195,6 @@ var avatarSkladanie;
             // TODO vypisat ze bola tema ulozena
             
           });
-           console.log("hovno");
            self.getAvatarsList();
         }
       });
@@ -207,8 +206,8 @@ var avatarSkladanie;
       var content = document.createElement("div");
       content.className = "avatarMain";
       createButton(content, "Pridaj avatara", this.pridajAvatara);
-      createButton(content, "Upraviť zvoleného avatara", this.upravZvolenehoAvatara);
-      createButton(content, "Nastaviť ako predvoleného", this.pridajAvatara);
+      createButton(content, "Uprav zvoleného avatara", this.upravZvolenehoAvatara);
+      createButton(content, "Nastav ako predvoleného", this.pridajAvatara);
 
       var mainContent = document.createElement("div");
       var out = [
