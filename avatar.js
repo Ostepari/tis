@@ -12,6 +12,7 @@ var Users = {
     return {id:0}
   }
 }
+var user = Users.currentLoggedIn();
 
 var avatarSkladanie;
 
@@ -134,8 +135,6 @@ var avatarSkladanie;
     }
 
     this.upravZvolenehoAvatara = function () {
-    //document.getElementById("upravZvolenehoAvatara").onclick = function () {
-      // TODO podobne ako pridajAvatara
       var e = document.getElementById("zoznamAvatarovPouzivatela");
       var avatarId = e.options[e.selectedIndex].value;
 
@@ -210,8 +209,7 @@ var avatarSkladanie;
       createButton(content, "Pridaj avatara", this.pridajAvatara);
       createButton(content, "Upraviť zvoleného avatara", this.upravZvolenehoAvatara);
       createButton(content, "Nastaviť ako predvoleného", this.pridajAvatara);
-      // simulacia usera na realnom serveri
-      var user = Users.currentLoggedIn();
+
       var mainContent = document.createElement("div");
       var out = [
         '<div id="aktualnyAvatar"></div>',
@@ -241,9 +239,7 @@ var avatarSkladanie;
         });
       });
     }
-
-    
-    
+  
     this.Bclose.style.visibility = 'visible';
     this.Bclose.addEventListener ('mousedown', function (e) {
       self.hide ();
@@ -257,8 +253,7 @@ var avatarSkladanie;
       self.show ();
       menu.Rem (self.ico);
       e.stopPropagation ();
-      // volame moju funkciu ktora z canvasu spravi fabric.js canvas
-       
+      // TODO vylepsit tento emit
       socket.emit('get zoznam tem', "test");
       self.getAvatarsList();
     });
@@ -284,8 +279,7 @@ var avatarSkladanie;
   })();
 })();
 
-///////////////////////////////////////////////////
-
+// TODO zbytocny prototyp
 avatarSkladanie.prototype.canvasJeInicializovany = false;
 
 ///////////////////////////////////////////////////
@@ -307,7 +301,6 @@ var avatarAdmin;
   
     ////////////////////////////////////////////////////
     
-
     this.PridajTemu = new Element('button', {
         html: 'Pridaj temu',
         styles: {
