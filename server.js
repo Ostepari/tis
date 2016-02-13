@@ -171,7 +171,6 @@ io.on('connection', function(socket) {
     Avatar.findAll({ where: {user_id: data.id} }).then(function(avatars) {
       fn(avatars);
     });
-    
   });
 
   socket.on('get avatar', function(avatarId, fn) {
@@ -185,9 +184,9 @@ io.on('connection', function(socket) {
     });  
   });
 
-  socket.on('get zoznam tem', function(data) {
+  socket.on('get zoznam tem', function(fn) {
     Theme.findAll().then(function(themes) {
-     socket.emit('zoznam tem', themes);
+      fn(themes);
     });
   });
 });

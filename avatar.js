@@ -21,6 +21,8 @@ var avatarSkladanie;
   avatarSkladanie = function () {
     RWindow.call (this, 100, 90, 830, 550, 'avatar-skladanie-min.png');
     var self = this;
+    // pre najvrchnejsie okno
+    var top = this;
 
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
     this.resizeable = false;
@@ -31,6 +33,7 @@ var avatarSkladanie;
 
     // monstrozna funkcia na pridanie avatara
     this.pridajAvatara = function () {
+      self = this;
       var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
       okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
       okno.resizeable = false;
@@ -39,7 +42,11 @@ var avatarSkladanie;
       okno.lab.style.textAlign = 'center';
       okno.lab.style.marginLeft = '0px';    okno.Bclose.style.visibility = 'visible';
 
-      okno.con.innerHTML = [
+      var content = document.createElement("div");
+      var mainContent = document.createElement("div");
+      // najskor nacitame zozname tem
+      // dddd
+      var out = [
         '<div id=\"pridajAvataraOkno\">',
         ' <label for=\"nazovAvatara\">Názov avatara</label>',
         ' <input type=\"text\" id=\"nazovAvatara\"><br />', 
@@ -47,29 +54,33 @@ var avatarSkladanie;
         ' <b>Vyber temu</b>',
         ' <br />',
         ' <div class="zoznamTem">',
-        '   <select class=\"image-picker show-labels show-html\" id="zoznamTemPridaj">',
-        '   </select>',
-        ' </div>',
-        '<hr>',
-        '<button type=\"button\" id=\"vytvorAvatara\">Pokračovať</button><br>',
-        '</div>'].join('\n');
+        '   <select class=\"image-picker show-labels show-html\" id="zoznamTemPridaj">'];
+      socket.emit('get zoznam tem', function(data) { 
+        data.forEach(function(theme) {
+          out.push('<option data-img-src=\"' 
+            + theme.thumbPath +'\" value=\"' + theme.id +'\">' + theme.name +'</option>');
+        });
+        out.push('   </select>');
+        out.push(' </div>');
+        out.push('<hr>');
+        out.push('</div>');
+        mainContent.innerHTML = out.join('\n');
+        okno.con.innerHTML = "";
+        okno.con.appendChild(mainContent);
+        createButton(okno.con, "Pokračovať", self.vytvorAvatara);
 
-      // pridaj zoznam tem
-      document.getElementById("zoznamTemPridaj").innerHTML = avatarSkladanie.prototype.zoznamTem;;
-      // TODO vytvorit horizontalny scroll na posuvanie tem...
-      
-      // vytvor selectovacie obrazky zo selectu
-      jQuery("select.image-picker").imagepicker({
-        show_label  : true
-      });
+        // vytvor selectovacie obrazky zo selectu
+        jQuery("select.image-picker").imagepicker({
+          show_label  : true
+        });  
+      }); 
 
       okno.Bclose.addEventListener ('mousedown', function (e) {
         okno.hide ();
         e.stopPropagation ();
       });
 
-      var pridajAvataraOkno = document.getElementById("pridajAvataraOkno");
-      document.getElementById("vytvorAvatara").onclick = function () {
+      this.vytvorAvatara = function () {
         var nazovAvatara = document.getElementById('nazovAvatara').value;
         var e = document.getElementById("zoznamTemPridaj");
         var themeId = e.options[e.selectedIndex].value;
@@ -88,7 +99,7 @@ var avatarSkladanie;
             objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
           }
           objekty = objekty.join('\n');
-          pridajAvataraOkno.innerHTML = [
+          okno.con.innerHTML = [
             '<div id=\"avatar\">',
             '  <div id=\"canvasPanel\">',
             '    <div class=\"tool-wrapper\">',
@@ -120,7 +131,7 @@ var avatarSkladanie;
             socket.emit('updatuj avatara', data, function (data) {
               // TODO vypisat ze bol avatar ulozeny
               // aktualizuj zoznam avatarov po updatovani
-              self.getAvatarsList();
+              top.getAvatarsList();
             });  
           }
         });
@@ -195,7 +206,7 @@ var avatarSkladanie;
             // TODO vypisat ze bola tema ulozena
             
           });
-           self.getAvatarsList();
+           top.getAvatarsList();
         }
       });
     }
@@ -229,8 +240,8 @@ var avatarSkladanie;
         mainContent.innerHTML = out;
         content.appendChild(mainContent);
         // najskor zmazeme obsah okna
-        self.con.innerHTML = "";
-        self.con.appendChild(content);
+        top.con.innerHTML = "";
+        top.con.appendChild(content);
         
         // vytvor selectovacie obrazky zo selectu
         jQuery("select.image-picker2").imagepicker({
@@ -239,25 +250,23 @@ var avatarSkladanie;
       });
     }
   
-    this.Bclose.style.visibility = 'visible';
-    this.Bclose.addEventListener ('mousedown', function (e) {
-      self.hide ();
-      menu.Add (self.ico);
+    top.Bclose.style.visibility = 'visible';
+    top.Bclose.addEventListener ('mousedown', function (e) {
+      top.hide ();
+      menu.Add (top.ico);
       e.stopPropagation ();
     });
 
-    this.ico = Asset.image ('obrazky/avatar-skladanie.png');
-    menu.Add (this.ico);
-    this.ico.addEventListener ('mousedown', function (e) {
-      self.show ();
-      menu.Rem (self.ico);
+    top.ico = Asset.image ('obrazky/avatar-skladanie.png');
+    menu.Add (top.ico);
+    top.ico.addEventListener ('mousedown', function (e) {
+      top.show ();
+      menu.Rem (top.ico);
       e.stopPropagation ();
-      // TODO vylepsit tento emit
-      socket.emit('get zoznam tem', "test");
-      self.getAvatarsList();
+      top.getAvatarsList();
     });
     
-    socket.on('zoznam tem', function(data) { 
+    socket.emit('get zoznam tem', function(data) { 
       avatarSkladanie.prototype.zoznamTem = [];  
       data.forEach(function(theme) {
         avatarSkladanie.prototype.zoznamTem.push('<option data-img-src=\"' 
@@ -341,7 +350,7 @@ var avatarAdmin;
       
       // zobrazime zoznam tem
       self.moja();
-      socket.on('zoznam tem', function(data) {
+      socket.emit('get zoznam tem', function(data) {
         var zoznamTem = [];
         zoznamTem.push('<ul id=\"avatarZoznamTem\">');
         data.forEach(function(theme) {
@@ -351,10 +360,10 @@ var avatarAdmin;
         zoznamTem = zoznamTem.join('\n');
         document.getElementById("avatarZoznamTem").innerHTML = zoznamTem;
       });
-      socket.emit('get zoznam tem', "test");
+      
     });
     
-    socket.on('zoznam tem', function(data) { 
+    socket.emit('get zoznam tem', function(data) { 
       avatarAdmin.prototype.zoznamTem = [];  
       avatarAdmin.prototype.zoznamTem.push('<ul id=\"avatarZoznamTem\">');
         data.forEach(function(theme) {
