@@ -67,6 +67,7 @@ var Avatar = sequelize.define('Avatar', {
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
   path: Sequelize.TEXT,
+  version: Sequelize.INTEGER,
   user_id: Sequelize.INTEGER,
   theme_id: Sequelize.INTEGER
 })
@@ -136,12 +137,17 @@ io.on('connection', function(socket) {
     mkdirSync('upload/avatary'); 
     var avatarPath = 'upload/avatary/' + data.user_id;
     mkdirSync(avatarPath);
-    Avatar.create({ name: data.name, json: "", theme_id: data.theme_id, user_id: data.user_id} ).then(function(avatar) {      
-      // najdi vsetky objekty k teme a posli avatar.id a obrazky
-      Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
-        data = {id: avatar.id, objekty: objekty};
-        fn(data);
-      }); 
+    Avatar.create({ 
+      name: data.name, 
+      json: "", 
+      theme_id: data.theme_id, 
+      user_id: data.user_id, 
+      version: 0}).then(function(avatar) {      
+        // najdi vsetky objekty k teme a posli avatar.id a obrazky
+        Objekt.findAll({ where: {theme_id: avatar.theme_id} }).then(function(objekty) {
+          data = {id: avatar.id, objekty: objekty};
+          fn(data);
+        }); 
     });
   });
   
@@ -152,7 +158,8 @@ io.on('connection', function(socket) {
         // TODO pridat +"?timestamp=" + new Date().getTime()); aby sa nam refreshovali obrazky 
         avatar.updateAttributes({
           json: data.json,
-          path: avatarPath
+          path: avatarPath,
+          version: avatar.version + 1,
         });
         saveImg(data.dataImg, avatarPath);
       }
