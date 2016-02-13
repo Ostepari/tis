@@ -147,3 +147,10 @@ deleteSelected = function() {
   if (activeObject) canvas.remove(activeObject);
   return;
 }
+
+deleteAll = function() {
+  if (confirm('Naozaj chcete zmazať celú plochu?')) {
+    canvas.clear();
+  } else {
+  }
+}
