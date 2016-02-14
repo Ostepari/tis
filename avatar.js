@@ -257,33 +257,42 @@ var avatarAdmin;
     this.lab.innerHTML = 'Admin - Vyskladaj si avatara';
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
-  
-    ////////////////////////////////////////////////////
     
-    this.PridajTemu = new Element('button', {
-        html: 'Pridaj temu',
-        styles: {
-            display: 'block',
-            border: '1px solid black',
-            cursor: 'pointer',
-            padding: '0, 0, 10px, 0'
-        },
-        events: {
-            click: function(){
-                self.hide ();
-                menu.Add (self.ico);
-                pridajTemuOkno();
-               
-            },
-        }
-    });
-    this.con.appendChild(this.PridajTemu);
-    this.Zoznam = new Element('ul', {
-        id: 'avatarZoznamTem',
-    });
-    this.con.appendChild(this.Zoznam);
-    
-    ////////////////////////////////////////////////////
+    this.pridajTemu = function() {
+      self.hide ();
+      menu.Add (self.ico);
+      pridajTemuOkno();
+    }
+
+    this.getThemesList = function() {
+      // funkcia ziska zoznam vsetkych tem a zobrazi ich v okne
+      // vytvorenie obsahu okna
+      var content = document.createElement("div");
+      content.className = "avatarAdminThemesMain";
+      createButton(content, "Pridaj avatara", self.pridajTemu);
+      
+      var mainContent = document.createElement("div");
+      var out = ['<b>Zoznam všetkých tém</b>:',
+        '<hr>',
+        '<ul>'];
+        
+      socket.emit('get zoznam tem', function (data) {
+        data.forEach(function(theme) {
+          out.push('<li>' + theme.name + '</li>');
+        });
+        out.push('</ul>');
+        mainContent.innerHTML = out.join('\n');
+        content.appendChild(mainContent);
+        // najskor zmazeme obsah okna
+        self.con.innerHTML = "";
+        self.con.appendChild(content);
+        
+        // vytvor selectovacie obrazky zo selectu
+        jQuery("select.image-picker2").imagepicker({
+          show_label  : true
+        });
+      });
+    }
     
     this.Bclose.style.visibility = 'visible';
     this.Bclose.addEventListener ('mousedown', function (e) {
@@ -298,20 +307,8 @@ var avatarAdmin;
       self.show ();
       menu.Rem (self.ico);
       e.stopPropagation ();
-      
       // zobrazime zoznam tem
-      self.moja();
-      socket.emit('get zoznam tem', function(data) {
-        var zoznamTem = [];
-        zoznamTem.push('<ul id=\"avatarZoznamTem\">');
-        data.forEach(function(theme) {
-          zoznamTem.push('<li>' + theme.name + '</li>');
-        });
-        zoznamTem.push('</ul>');
-        zoznamTem = zoznamTem.join('\n');
-        document.getElementById("avatarZoznamTem").innerHTML = zoznamTem;
-      });
-      
+      self.getThemesList();    
     });
     
     socket.emit('get zoznam tem', function(data) { 
