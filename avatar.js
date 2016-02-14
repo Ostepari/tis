@@ -14,16 +14,13 @@ var Users = {
 }
 var user = Users.currentLoggedIn();
 
-var avatarSkladanie;
+var avatarHlavneOkno;
 
 (function () {
 
-  avatarSkladanie = function () {
+  avatarHlavneOkno = function () {
     RWindow.call (this, 100, 90, 830, 550, 'avatar-skladanie-min.png');
     var self = this;
-    // pre najvrchnejsie okno
-    var top = this;
-
     this.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
     this.resizeable = false;
     this.dragable = true;
@@ -31,184 +28,27 @@ var avatarSkladanie;
     this.lab.style.textAlign = 'center';
     this.lab.style.marginLeft = '0px';
 
-    // monstrozna funkcia na pridanie avatara
-    this.pridajAvatara = function () {
-      self = this;
-      var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
-      okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
-      okno.resizeable = false;
-      okno.show();
-      okno.lab.innerHTML = 'Admin - Pridaj avatara';
-      okno.lab.style.textAlign = 'center';
-      okno.lab.style.marginLeft = '0px';    okno.Bclose.style.visibility = 'visible';
+    this.pridajAvatara = function() {
+      // skryje hlavne okno a zobrazi okno na zvolenie temy
+      self.hide ();
+      menu.Add (self.ico);
+      avatarOknoVyberuTemy();
+    }
 
-      var content = document.createElement("div");
-      var mainContent = document.createElement("div");
-      // najskor nacitame zozname tem
-      // dddd
-      var out = [
-        '<div id=\"pridajAvataraOkno\">',
-        ' <label for=\"nazovAvatara\">Názov avatara</label>',
-        ' <input type=\"text\" id=\"nazovAvatara\"><br />', 
-        ' <hr />',
-        ' <b>Vyber temu</b>',
-        ' <br />',
-        ' <div class="zoznamTem">',
-        '   <select class=\"image-picker show-labels show-html\" id="zoznamTemPridaj">'];
-      socket.emit('get zoznam tem', function(data) { 
-        data.forEach(function(theme) {
-          out.push('<option data-img-src=\"' 
-            + theme.thumbPath +'\" value=\"' + theme.id +'\">' + theme.name +'</option>');
-        });
-        out.push('   </select>');
-        out.push(' </div>');
-        out.push('<hr>');
-        out.push('</div>');
-        mainContent.innerHTML = out.join('\n');
-        okno.con.innerHTML = "";
-        okno.con.appendChild(mainContent);
-        createButton(okno.con, "Pokračovať", self.vytvorAvatara);
-
-        // vytvor selectovacie obrazky zo selectu
-        jQuery("select.image-picker").imagepicker({
-          show_label  : true
-        });  
-      }); 
-
-      okno.Bclose.addEventListener ('mousedown', function (e) {
-        okno.hide ();
-        e.stopPropagation ();
-      });
-
-      this.vytvorAvatara = function () {
-        var nazovAvatara = document.getElementById('nazovAvatara').value;
-        var e = document.getElementById("zoznamTemPridaj");
-        var themeId = e.options[e.selectedIndex].value;
-        
-        // simulacia usera na realnom serveri 
-        var user = Users.currentLoggedIn();
-        var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
-
-        var objekty = [];
-        var avatar_id;
-        // socket a callback na data
-        socket.emit("pridaj avatara", data, function (data) {
-          avatar_id = data.id;
-          for (var i = 0; i < data.objekty.length; i++) {
-            var objekt = data.objekty[i];
-            objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
-          }
-          objekty = objekty.join('\n');
-          okno.con.innerHTML = [
-            '<div id=\"avatar\">',
-            '  <div id=\"canvasPanel\">',
-            '    <div class=\"tool-wrapper\">',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
-            '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
-            '    </div>',
-            '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
-            '    Your browser does not support the HTML5 canvas tag.',
-            '    </canvas>',
-            '  </div>',
-            '',
-            '  <div class=\"objekty\" div="avatarObjekty">',
-            objekty,
-            '  </div>',
-            '</div>'].join('\n');
-           // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
-          if (!this.canvasJeInicializovany) {
-            canvas = new fabric.Canvas('myCanvas');
-            avatarSkladanie.prototype.canvasJeInicializovany = true;
-          }
-          document.getElementById("avatarUloz").onclick = function () {
-            var json = JSON.stringify( canvas.toJSON() );
-            var dataImg = canvas.toDataURL('png');
-            console.log(dataImg);
-            data = {avatar_id: avatar_id, json: json, dataImg: dataImg};
-            socket.emit('updatuj avatara', data, function (data) {
-              // TODO vypisat ze bol avatar ulozeny
-              // aktualizuj zoznam avatarov po updatovani
-              top.getAvatarsList();
-            });  
-          }
-        });
-      }
-
-      okno.Bclose.addEventListener ('mousedown', function (e) {
-        // clear canvas on close
-        canvas.clear();
-        okno.hide ();
-        e.stopPropagation ();
+    this.upravAvatara = function() {
+      var e = document.getElementById("zoznamAvatarovPouzivatela");
+      var avatarId = e.options[e.selectedIndex].value;
+      socket.emit("get avatar", avatarId, function (data) { 
+        // skryje hlavne okno a zobrazi okno na zvolenie temy
+        self.hide ();
+        menu.Add (self.ico);
+        // otvorime okno so skladanim avatara
+        avatarOknoSkladania(data, data.json);
       });
     }
 
-    this.upravZvolenehoAvatara = function () {
-      var e = document.getElementById("zoznamAvatarovPouzivatela");
-      var avatarId = e.options[e.selectedIndex].value;
-
-      socket.emit("get avatar", avatarId, function (data) {
-        var okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
-        okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
-        okno.resizeable = false;
-        okno.show();
-        okno.lab.innerHTML = 'Admin - Uprav avatara';
-        okno.lab.style.textAlign = 'center';
-        okno.lab.style.marginLeft = '0px';
-        okno.Bclose.style.visibility = 'visible';
-
-        var objekty = [];
-        for (var i = 0; i < data.objekty.length; i++) {
-          var objekt = data.objekty[i];
-          objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
-        }
-        objekty = objekty.join('\n');
-
-        okno.con.innerHTML = [
-            '<div id=\"avatar\">',
-            '  <div id=\"canvasPanel\">',
-            '    <div class=\"tool-wrapper\">',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
-            '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"deleteAll()\"><i class=\"fa fa-times\"></i></button>',
-            '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
-            '    </div>',
-            '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
-            '    Your browser does not support the HTML5 canvas tag.',
-            '    </canvas>',
-            '  </div>',
-            '',
-            '  <div class=\"objekty\" div="avatarObjekty">',
-            objekty,
-            '  </div>',
-            '</div>'].join('\n');
-        // ak este nie je fabric.js inicializovany, tak ho inicializuj, inac nie
-        if (!this.canvasJeInicializovany) {
-          canvas = new fabric.Canvas('myCanvas');
-          avatarSkladanie.prototype.canvasJeInicializovany = true;
-        }
-        loadJSON(data.json);
-
-        okno.Bclose.addEventListener ('mousedown', function (e) {
-          okno.hide ();
-          e.stopPropagation ();
-        });
-
-        document.getElementById("avatarUloz").onclick = function () {
-          var json = JSON.stringify( canvas.toJSON() );
-          var dataImg = canvas.toDataURL('png');
-         
-          data = {avatar_id: data.id, json: json, dataImg: dataImg};
-          socket.emit('updatuj avatara', data, function (data) {
-            // TODO vypisat ze bola tema ulozena
-            
-          });
-           top.getAvatarsList();
-        }
-      });
+    this.nastavPredvoleneho = function() {
+      // TODO, respektivne nemame pristup k tabulke users 
     }
 
     this.getAvatarsList = function() {
@@ -216,9 +56,9 @@ var avatarSkladanie;
       // vytvorenie obsahu okna
       var content = document.createElement("div");
       content.className = "avatarMain";
-      createButton(content, "Pridaj avatara", this.pridajAvatara);
-      createButton(content, "Uprav zvoleného avatara", this.upravZvolenehoAvatara);
-      createButton(content, "Nastav ako predvoleného", this.pridajAvatara);
+      createButton(content, "Pridaj avatara", self.pridajAvatara);
+      createButton(content, "Uprav zvoleného avatara", this.upravAvatara);
+      createButton(content, "Nastav ako predvoleného", this.nastavPredboleneho);
 
       var mainContent = document.createElement("div");
       var out = [
@@ -227,11 +67,10 @@ var avatarSkladanie;
         '<hr>',
         ' <div class="zoznamAvatarov">',
           '   <select class=\"image-picker2 show-labels show-html\" id="zoznamAvatarovPouzivatela">'];
-
       socket.emit('get zoznam avatarov', user, function (data) {
         for (var i = 0; i < data.length; i++) {
           var objekt = data[i];
-          out.push('<option data-img-src="' + objekt.path + '" value="' + objekt.id + '">' + objekt.name + '</option>');
+          out.push('<option data-img-src="' + objekt.data_uri + '" value="' + objekt.id + '">' + objekt.name + '</option>');
         }
         out.push('   </select>');
         out.push(' </div>');
@@ -240,8 +79,8 @@ var avatarSkladanie;
         mainContent.innerHTML = out;
         content.appendChild(mainContent);
         // najskor zmazeme obsah okna
-        top.con.innerHTML = "";
-        top.con.appendChild(content);
+        self.con.innerHTML = "";
+        self.con.appendChild(content);
         
         // vytvor selectovacie obrazky zo selectu
         jQuery("select.image-picker2").imagepicker({
@@ -250,47 +89,159 @@ var avatarSkladanie;
       });
     }
   
-    top.Bclose.style.visibility = 'visible';
-    top.Bclose.addEventListener ('mousedown', function (e) {
-      top.hide ();
-      menu.Add (top.ico);
+    self.Bclose.style.visibility = 'visible';
+    self.Bclose.addEventListener ('mousedown', function (e) {
+      self.hide ();
+      menu.Add (self.ico);
       e.stopPropagation ();
     });
 
-    top.ico = Asset.image ('obrazky/avatar-skladanie.png');
-    menu.Add (top.ico);
-    top.ico.addEventListener ('mousedown', function (e) {
-      top.show ();
-      menu.Rem (top.ico);
+    self.ico = Asset.image ('obrazky/avatar-skladanie.png');
+    menu.Add (self.ico);
+    self.ico.addEventListener ('mousedown', function (e) {
+      self.show ();
+      menu.Rem (self.ico);
       e.stopPropagation ();
-      top.getAvatarsList();
+      self.getAvatarsList();
     });
-    
-    socket.emit('get zoznam tem', function(data) { 
-      avatarSkladanie.prototype.zoznamTem = [];  
-      data.forEach(function(theme) {
-        avatarSkladanie.prototype.zoznamTem.push('<option data-img-src=\"' 
-          + theme.thumbPath +'\" value=\"' + theme.id +'\">' + theme.name +'</option>');
-      });
-      avatarSkladanie.prototype.zoznamTem = avatarSkladanie.prototype.zoznamTem.join('\n');
-      var element = document.getElementById("zoznamTemPridaj");
-      if (element != null) {
-        element.innerHTML = avatarSkladanie.prototype.zoznamTem;
-      }
-    }); 
   };
 
   (function (){
     function Tmp () {};
     Tmp.prototype = RWindow.prototype;
-    avatarSkladanie.prototype = new Tmp ();
+    avatarHlavneOkno.prototype = new Tmp ();
   })();
 })();
 
-// TODO zbytocny prototyp
-avatarSkladanie.prototype.canvasJeInicializovany = false;
+var avatarOknoVyberuTemy = function () {
+  var self = this;
+  this.okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
+  this.okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
+  this.okno.resizeable = false;
+  this.okno.show();
+  this.okno.lab.innerHTML = 'Admin - Pridaj avatara';
+  this.okno.lab.style.textAlign = 'center';
+  this.okno.lab.style.marginLeft = '0px';    
+  this.okno.Bclose.style.visibility = 'visible';
 
-///////////////////////////////////////////////////
+  var content = document.createElement("div");
+  var mainContent = document.createElement("div");
+
+  // najskor nacitame zozname tem
+  var out = [
+    '<div id=\"pridajAvataraOkno\">',
+    ' <label for=\"nazovAvatara\">Názov avatara</label>',
+    ' <input type=\"text\" id=\"nazovAvatara\"><br />', 
+    ' <hr />',
+    ' <b>Vyber temu</b>',
+    ' <br />',
+    ' <div class="zoznamTem">',
+    '   <select class=\"image-picker show-labels show-html\" id="zoznamTemPridaj">'];
+  socket.emit('get zoznam tem', function(data) { 
+    data.forEach(function(theme) {
+      out.push('<option data-img-src=\"' 
+        + theme.thumbPath +'\" value=\"' + theme.id +'\">' + theme.name +'</option>');
+    });
+    out.push('   </select>');
+    out.push(' </div>');
+    out.push('<hr>');
+    out.push('</div>');
+    mainContent.innerHTML = out.join('\n');
+    self.okno.con.innerHTML = "";
+    self.okno.con.appendChild(mainContent);
+    createButton(self.okno.con, "Pokračovať", self.vytvorAvatara);
+
+    // vytvor selectovacie obrazky zo selectu
+    jQuery("select.image-picker").imagepicker({
+      show_label  : true
+    });  
+  }); 
+
+  this.okno.Bclose.addEventListener ('mousedown', function (e) {
+    self.okno.hide ();
+    e.stopPropagation ();
+  });
+
+  this.vytvorAvatara = function() {
+    // najskor ziskame data z inputov (nazov, tema)
+    var nazovAvatara = document.getElementById('nazovAvatara').value;
+    var e = document.getElementById("zoznamTemPridaj");
+    var themeId = e.options[e.selectedIndex].value;
+    // simulacia usera na realnom serveri 
+    var user = Users.currentLoggedIn();
+    var data = {name: nazovAvatara, theme_id: themeId, user_id: user.id};
+    // teraz pridame data z formulara do databazy
+    socket.emit("pridaj avatara", data, function (data) {
+      // po pridani, data objektov temy odosleme do noveho okna v 
+      // ktorom sa bude skladat avatar
+      self.okno.hide ();
+      avatarOknoSkladania(data, "");
+    });
+  }
+}
+
+var avatarOknoSkladania = function (data, json) {
+  var self = this;
+  this.data = data;
+  this.json = json;
+  this.okno = new RWindow(100, 90, 830, 450, 'avatar-skladanie-min.png');
+  this.okno.change_cfg ({bgcolor:'rgb(164, 234, 164)', selcolor:'rgb(81, 218, 129)'});
+  this.okno.resizeable = false;
+  this.okno.show();
+  this.okno.lab.innerHTML = 'Admin - Uprav avatara';
+  this.okno.lab.style.textAlign = 'center';
+  this.okno.lab.style.marginLeft = '0px';    
+  this.okno.Bclose.style.visibility = 'visible';
+
+  var objekty = [];
+  this.avatar_id = this.data.id;
+  for (var i = 0; i < this.data.objekty.length; i++) {
+    var objekt = this.data.objekty[i];
+    objekty.push('<img src=\"'+ objekt.path +'\" onclick=\"addImage(\''+ objekt.path +'\', 0.1, 0.25)\" class=\"avatar-objekt\">');
+  }
+  objekty = objekty.join('\n');
+  this.okno.con.innerHTML = [
+    '<div id=\"avatar\">',
+    '  <div id=\"canvasPanel\">',
+    '    <div class=\"tool-wrapper\">',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť vyššie\" onclick=\"bringForward()\"><i class=\"fa fa-plus-square\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"><i class=\"fa fa-minus-square\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
+    '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
+    '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
+    '    </div>',
+    '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
+    '    Your browser does not support the HTML5 canvas tag.',
+    '    </canvas>',
+    '  </div>',
+    '',
+    '  <div class=\"objekty\" div="avatarObjekty">',
+    objekty,
+    '  </div>',
+    '</div>'].join('\n');
+  
+  // inicializujeme canvas a ulozeny json s poziciami objektov
+  this.canvas = new fabric.Canvas('myCanvas');
+  loadJSON(this.json);
+
+  this.okno.Bclose.addEventListener ('mousedown', function (e) {
+    self.okno.hide ();
+    e.stopPropagation ();
+  });
+
+  // TODO prerobit bez getElementById
+  document.getElementById("avatarUloz").onclick = function () {
+    var json = JSON.stringify( self.canvas.toJSON() );
+    var dataImg = self.canvas.toDataURL('png');
+    console.log(dataImg);
+    data = {avatar_id: self.avatar_id, json: json, dataImg: dataImg};
+    socket.emit('updatuj avatara', data, function (data) {
+      // TODO vypisat ze bol avatar ulozeny 
+    });  
+  }
+}
+
+/////////////////// avatar admin ///////////////////////////
 
 var avatarAdmin;
 

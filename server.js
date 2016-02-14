@@ -66,6 +66,7 @@ var Avatar = sequelize.define('Avatar', {
   id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name: Sequelize.STRING,
   json: Sequelize.TEXT,
+  data_uri: Sequelize.TEXT,
   path: Sequelize.TEXT,
   version: Sequelize.INTEGER,
   user_id: Sequelize.INTEGER,
@@ -160,15 +161,18 @@ io.on('connection', function(socket) {
           json: data.json,
           path: avatarPath,
           version: avatar.version + 1,
+          data_uri: data.dataImg
         });
-        saveImg(data.dataImg, avatarPath);
+        // ak by sme chceli ukladat obrazok aj na file system
+        // tak odkomentovat
+        //saveImg(data.dataImg, avatarPath);
       }
     });
     fn("updated");
   });
 
   socket.on('get zoznam avatarov', function(data, fn) {
-    Avatar.findAll({ where: {user_id: data.id} }).then(function(avatars) {
+    Avatar.findAll({ where: {user_id: data.id}, order: [['updatedAt', 'DESC']] }).then(function(avatars) {
       fn(avatars);
     });
   });
