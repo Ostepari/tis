@@ -2,6 +2,7 @@ function createButton(context, name, func){
     var button = document.createElement("input");
     button.type = "button";
     button.value = name;
+    button.className = 'avatarTlacidlo';
     button.onclick = func;
     context.appendChild(button);
 }
@@ -65,6 +66,7 @@ var avatarHlavneOkno;
         '<div id="aktualnyAvatar"></div>',
         '<div></div>',
         '<hr>',
+        '<b>Zoznam všetkých avatarov</b>',
         ' <div class="zoznamAvatarov">',
           '   <select class=\"image-picker2 show-labels show-html\" id="zoznamAvatarovPouzivatela">'];
       socket.emit('get zoznam avatarov', user, function (data) {
@@ -269,7 +271,7 @@ var avatarAdmin;
       // vytvorenie obsahu okna
       var content = document.createElement("div");
       content.className = "avatarAdminThemesMain";
-      createButton(content, "Pridaj avatara", self.pridajTemu);
+      createButton(content, "Pridaj tému", self.pridajTemu);
       
       var mainContent = document.createElement("div");
       var out = ['<b>Zoznam všetkých tém</b>:',
