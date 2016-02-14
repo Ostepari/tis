@@ -132,10 +132,10 @@ var avatarOknoVyberuTemy = function () {
   // najskor nacitame zozname tem
   var out = [
     '<div id=\"pridajAvataraOkno\">',
-    ' <label for=\"nazovAvatara\">Názov avatara</label>',
+    ' <label for=\"nazovAvatara\"><b>Názov avatara: </b></label>',
     ' <input type=\"text\" id=\"nazovAvatara\"><br />', 
     ' <hr />',
-    ' <b>Vyber temu</b>',
+    ' <b>Vyber tému: </b>',
     ' <br />',
     ' <div class="zoznamTem">',
     '   <select class=\"image-picker show-labels show-html\" id="zoznamTemPridaj">'];
@@ -211,6 +211,7 @@ var avatarOknoSkladania = function (data, json) {
     '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"><i class=\"fa fa-trash-o\"></i></button>',
     '      <button type=\"button\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"><i class=\"fa fa-times\"></i></button>',
     '      <button type=\"button\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"><i class=\"fa fa-floppy-o\"></i></button>',
+    '      <span id="avatarBolUlozeny" style="color: green; margin-left: 15px"></span>',
     '    </div>',
     '    <canvas id=\"myCanvas\" width=\"350\" height=\"350\">',
     '    Your browser does not support the HTML5 canvas tag.',
@@ -239,6 +240,11 @@ var avatarOknoSkladania = function (data, json) {
     data = {avatar_id: self.avatar_id, json: json, dataImg: dataImg};
     socket.emit('updatuj avatara', data, function (data) {
       // TODO vypisat ze bol avatar ulozeny 
+      var result = document.getElementById("avatarBolUlozeny");
+      result.innerHTML = '<b>uložené!</b>';
+      setTimeout(function(){
+        result.innerHTML = '';
+      }, 2000);
     });  
   }
 }
