@@ -209,7 +209,7 @@ var avatarOknoSkladania = function (data, json) {
     '      <input src=\"obrazky/plocha/move_up.png\" type=\"image\" class=\"btn-default title=\"Posunúť vyššie\" onclick=\"bringForward()\"></input>',
     '      <input src=\"obrazky/plocha/move_down.png\" type=\"image\" class=\"btn-default \" title=\"Posunúť nižšie\" onclick=\"sendBackwards()\"></i></input>',
     '      <input src=\"obrazky/plocha/delete_obj.png\" type=\"image\" class=\"btn-default \" title=\"Zmazať objekt\" onclick=\"deleteSelected()\"></i></input>',
-    '      <input src=\"obrazky/plocha/delete_all.png\" type=\"image\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"canvas.clear()\"></i></input>',
+    '      <input src=\"obrazky/plocha/delete_all.png\" type=\"image\" class=\"btn-default \" title=\"Zmazať všetko\" onclick=\"deleteAll()\"></i></input>',
     '      <input src=\"obrazky/plocha/save.png\" type=\"image\" id=\"avatarUloz\" class=\"btn-default \" title=\"Uložiť\"></i></input>',
     '      <span id="avatarBolUlozeny" style="color: green; margin-left: 15px"></span>',
     '    </div>',
