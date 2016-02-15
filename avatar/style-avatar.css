@@ -25,8 +25,7 @@ div#avatar .btn-default {
 	background-color: #fff;
 	margin-bottom: 0;
 	border: 1px solid #ccc;
-	font-size: 16px;
-    line-height: 1.5;
+  margin-top: 3px;
 }
 
 div#avatar .btn-default:hover {
